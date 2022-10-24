@@ -1,0 +1,33 @@
+2022-10-24 00:05:50.905 [http-bio-80-exec-7] INFO  com.hit.web.Servlet.Register - Kotomi注册成功
+2022-10-24 00:05:53.337 [Thread-6] INFO  com.hit.util.MailUtil - 向houchangkun@gmail.com邮件成功发送!
+2022-10-24 00:18:05.757 [http-bio-80-exec-7] INFO  com.hit.web.Servlet.Register - Foukochan注册成功
+2022-10-24 00:18:07.828 [Thread-6] INFO  com.hit.util.MailUtil - 向houchangkun@gmail.com邮件成功发送!
+2022-10-24 00:20:09.617 [http-bio-80-exec-7] INFO  com.hit.web.Servlet.Register - kaguranana注册成功
+2022-10-24 00:20:11.689 [Thread-6] INFO  com.hit.util.MailUtil - 向houchangkun@gamil.com邮件成功发送!
+2022-10-24 00:28:51.855 [http-bio-80-exec-8] INFO  com.hit.web.Servlet.Register - kaguramea注册成功
+2022-10-24 00:28:53.831 [Thread-6] INFO  com.hit.util.MailUtil - 向houchangkun@gmail.com邮件成功发送!
+2022-10-24 00:45:26.215 [http-bio-80-exec-7] INFO  com.hit.web.Servlet.Register - AzumaSeren注册成功
+2022-10-24 00:45:28.211 [Thread-6] INFO  com.hit.util.MailUtil - 向houchangkun@gmail.com邮件成功发送!
+2022-10-24 00:48:45.034 [http-bio-80-exec-5] INFO  com.hit.web.Servlet.Register - Seren注册成功
+2022-10-24 00:48:47.194 [Thread-6] INFO  com.hit.util.MailUtil - 向houchangkun@gmail.com邮件成功发送!
+2022-10-24 00:48:56.331 [http-bio-80-exec-6] INFO  com.hit.web.Servlet.activeServlet - code=4GgK
+2022-10-24 00:48:56.331 [http-bio-80-exec-6] INFO  com.hit.web.Servlet.activeServlet - 实际参数为 null
+2022-10-24 00:50:18.639 [http-bio-80-exec-5] INFO  com.hit.web.Servlet.Register - SerenKawaii注册成功
+2022-10-24 00:50:20.678 [Thread-6] INFO  com.hit.util.MailUtil - 向houchangkun@gmail.com邮件成功发送!
+2022-10-24 00:50:28.269 [http-bio-80-exec-7] INFO  com.hit.web.Servlet.activeServlet - code=cDJN
+2022-10-24 00:50:28.270 [http-bio-80-exec-7] INFO  com.hit.web.Servlet.activeServlet - 实际参数为 cDJN
+2022-10-24 01:03:12.223 [http-bio-80-exec-1] INFO  com.hit.web.Servlet.Login - Shirou登录成功
+2022-10-24 01:03:15.079 [http-bio-80-exec-3] INFO  com.hit.web.Servlet.Login - Shirou登录成功
+2022-10-24 01:04:22.692 [http-bio-80-exec-6] INFO  com.hit.web.Servlet.Login - SerenKawaii登录成功
+2022-10-24 01:05:19.361 [http-bio-80-exec-1] INFO  com.hit.web.Servlet.Login - SerenKawaii登录成功
+2022-10-24 01:05:41.991 [http-bio-80-exec-7] INFO  com.hit.web.Servlet.Register - SerenKawaiii注册成功
+2022-10-24 01:05:44.141 [Thread-6] INFO  com.hit.util.MailUtil - 向houchangkun@gmail.com邮件成功发送!
+2022-10-24 01:05:53.975 [http-bio-80-exec-8] INFO  com.hit.web.Servlet.activeServlet - code=ql7a
+2022-10-24 01:05:53.975 [http-bio-80-exec-8] INFO  com.hit.web.Servlet.activeServlet - 实际参数为 ql7a
+2022-10-24 01:06:02.982 [http-bio-80-exec-9] INFO  com.hit.web.Servlet.Login - SerenKawaiii登录成功
+2022-10-24 01:06:20.099 [http-bio-80-exec-10] INFO  com.hit.web.Servlet.Login - AzumaSeren登录失败，账号未激活
+2022-10-24 01:07:20.471 [http-bio-80-exec-1] INFO  com.hit.web.Servlet.Login - AzumaSeren登录失败，账号未激活
+2022-10-24 01:09:01.321 [http-bio-80-exec-1] INFO  com.hit.web.Servlet.Login - AzumaSeren登录失败，账号未激活
+2022-10-24 01:09:05.037 [http-bio-80-exec-3] INFO  com.hit.web.Filter.LoginFilter - 当前登录账户为SerenKawaiii
+2022-10-24 01:10:15.909 [http-bio-80-exec-1] ERROR com.hit.web.Servlet.Login - AzumaSeren登录失败，账号未激活
+2022-10-24 01:10:23.840 [http-bio-80-exec-3] INFO  com.hit.web.Filter.LoginFilter - 当前登录账户为SerenKawaiii

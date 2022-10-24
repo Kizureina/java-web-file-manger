@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>用户登录</title>
+  <link rel="stylesheet"  href="css/style.css" />
+  <link rel="icon" href="img/login.ico" type="image/x-icon">
+
+</head>
+
+<body>
+<div id="app">
+  <div class="login">
+    <h2>Login</h2>
+
+<!--    <template>-->
+<!--      <el-button :plain="true" @click="open2">登录成功OvO</el-button>-->
+<!--      <el-button :plain="true" @click="open4">登陆失败，请重试QAQ</el-button>-->
+<!--    </template>-->
+
+    <form action="/login" method="post">
+      <div class="login_box">
+        <!-- required就是不能为空  必须在css效果中有很大的作用 -->
+        <input type="text" name='username' id='username' required  />
+        <label for="username" >Username</label>
+      </div>
+      <div class="login_box">
+        <input type="password" name='password' id='password' required="required">
+        <label for="password">Password</label>
+        <button type="submit" style="display:block;margin:0 auto;width:245px;height:45px;">
+          Login!
+        </button>
+        <div class="msg">
+          Don't have an account? <a href="/register.html">Sing up</a>
+        </div>
+      </div>
+    </form>
+  </div>
+
+</div>
+<script src="js/vue.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+<!--<script>-->
+<!--  new Vue({-->
+<!--    el:"#app",-->
+<!--    method:{-->
+<!--      open2(){-->
+<!--        this.$message({-->
+<!--          showClose: true,-->
+<!--          message: '登录成功OvO',-->
+<!--          type: 'success'-->
+<!--        });-->
+<!--      },-->
+<!--      open4(){-->
+<!--        this.$message({-->
+<!--          showClose: true,-->
+<!--          message: '登陆失败，请重试QAQ',-->
+<!--          type: 'error'-->
+<!--        });-->
+<!--      }-->
+<!--    }-->
+<!--  })-->
+<!--</script>-->
+</body>
+</html>

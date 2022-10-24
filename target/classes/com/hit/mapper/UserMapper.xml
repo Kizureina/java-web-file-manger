@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+namespace
+-->
+<mapper namespace="com.hit.mapper.UserMapper">
+    <resultMap id="userResultMap" type="com.hit.pojo.User">
+        <result column="username" property="userName"/>
+        <result column="password" property="passWord"/>
+    </resultMap>
+    <insert id="insertUserByName">
+        insert into user(username,password,status)
+        values (#{username},#{password},#{status});
+    </insert>
+    <update id="editUserStatus">
+        update user
+        set
+            status = #{status}
+        where username = #{username};
+    </update>
+
+    <select id="selectAllUsers" resultMap="userResultMap">
+        select *
+        from user;
+    </select>
+
+    <select id="selectUserStatusByName" resultType="java.lang.Integer">
+        select status
+        from user
+        where username = #{username};
+    </select>
+</mapper>

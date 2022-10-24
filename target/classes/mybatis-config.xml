@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+    <typeAliases>
+        <package name="com.hit.pojo"/>
+    </typeAliases>
+
+    <environments default="development">
+        <!--
+        配置数据源环境，可配置多个environment
+        通过default修改默认源
+        -->
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <!--数据库连接信息-->
+                <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
+                <property name="url" value="jdbc:mysql:///teaching?useSSL=false&amp;serverTimezone=UTC&amp;allowPublicKeyRetrieval=true"/>
+                <property name="username" value="root"/>
+                <property name="password" value="Hck282018"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <!--指定sql映射文件-->
+    <mappers>
+<!--        <mapper resource="com/hit/mapper/BrandMapper.xml"/>-->
+        <!--包扫描方式加载代理文件-->
+        <package name="com.hit.mapper"/>
+    </mappers>
+</configuration>
