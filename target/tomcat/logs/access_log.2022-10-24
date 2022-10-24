@@ -79,3 +79,10 @@
 0:0:0:0:0:0:0:1 - - [24/Oct/2022:01:09:05 +0800] "GET /fileInfo HTTP/1.1" 200 14 http-bio-80-exec-3 44
 0:0:0:0:0:0:0:1 - - [24/Oct/2022:01:10:15 +0800] "POST /login HTTP/1.1" 200 94 http-bio-80-exec-1 184
 0:0:0:0:0:0:0:1 - - [24/Oct/2022:01:10:23 +0800] "GET /fileInfo HTTP/1.1" 200 14 http-bio-80-exec-3 44
+0:0:0:0:0:0:0:1 - - [24/Oct/2022:19:04:31 +0800] "GET / HTTP/1.1" 304 - http-bio-80-exec-1 79
+0:0:0:0:0:0:0:1 - - [24/Oct/2022:19:04:31 +0800] "GET /css/style.css HTTP/1.1" 304 - http-bio-80-exec-3 4
+0:0:0:0:0:0:0:1 - - [24/Oct/2022:19:05:19 +0800] "POST /login HTTP/1.1" 200 79 http-bio-80-exec-4 170
+0:0:0:0:0:0:0:1 - - [24/Oct/2022:19:05:20 +0800] "GET /FMSindex.html HTTP/1.1" 200 6122 http-bio-80-exec-5 3
+0:0:0:0:0:0:0:1 - - [24/Oct/2022:19:05:20 +0800] "GET /js/vue.min.js HTTP/1.1" 200 107155 http-bio-80-exec-6 3
+0:0:0:0:0:0:0:1 - - [24/Oct/2022:19:05:20 +0800] "GET /js/axois.min.js HTTP/1.1" 304 - http-bio-80-exec-2 2
+0:0:0:0:0:0:0:1 - - [24/Oct/2022:19:05:22 +0800] "GET /fileInfo HTTP/1.1" 200 14 http-bio-80-exec-7 90

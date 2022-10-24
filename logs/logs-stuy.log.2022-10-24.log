@@ -31,3 +31,7 @@
 2022-10-24 01:09:05.037 [http-bio-80-exec-3] INFO  com.hit.web.Filter.LoginFilter - 当前登录账户为SerenKawaiii
 2022-10-24 01:10:15.909 [http-bio-80-exec-1] ERROR com.hit.web.Servlet.Login - AzumaSeren登录失败，账号未激活
 2022-10-24 01:10:23.840 [http-bio-80-exec-3] INFO  com.hit.web.Filter.LoginFilter - 当前登录账户为SerenKawaiii
+2022-10-24 19:04:31.632 [http-bio-80-exec-1] INFO  com.hit.web.Filter.LoginFilter - 当前登录账户为null
+2022-10-24 19:05:19.385 [http-bio-80-exec-4] INFO  com.hit.web.Servlet.Login - SerenKawaiii登录成功
+2022-10-24 19:05:20.652 [http-bio-80-exec-5] INFO  com.hit.web.Filter.LoginFilter - 当前登录账户为SerenKawaiii
+2022-10-24 19:05:22.834 [http-bio-80-exec-7] INFO  com.hit.web.Filter.LoginFilter - 当前登录账户为SerenKawaiii
