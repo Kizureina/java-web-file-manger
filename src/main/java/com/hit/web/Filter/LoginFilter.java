@@ -34,7 +34,7 @@ public class LoginFilter implements Filter {
         HttpSession session = req.getSession();
         Object user = session.getAttribute("username");
 
-        logger.info("当前登录账户为" + user);
+//        logger.info("当前登录账户为" + user);
         if (user != null){
             chain.doFilter(request, response);
         }else {

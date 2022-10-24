@@ -5,6 +5,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 public class FileService {
     private String path;
@@ -24,11 +27,12 @@ public class FileService {
         this.path = path;
     }
 
-    public static void fileRecursion(File file){
+    public static List<com.hit.pojo.File> getFileInfo(File file){
+        List<com.hit.pojo.File> fileList = new ArrayList<>();
         //1、判断传入的是否是目录
         if(!file.isDirectory()){
             //不是目录直接退出
-            return;
+            return null;
         }
         //已经确保了传入的file是目录
         File[] files = file.listFiles();
@@ -37,14 +41,18 @@ public class FileService {
         for (File f: files) {
             //如果该目录下文件还是个文件夹就再进行递归遍历其子目录
             if(f.isDirectory()){
-                //递归
-                fileRecursion(f);
+                long lastModified = f.lastModified();
+                Date date = new Date(lastModified);
+                com.hit.pojo.File file1 = new com.hit.pojo.File(0,f.getName(), date);
+                fileList.add(file1);
             }else {
-                //如果该目录下文件是个文件，则打印对应的名字
-                System.out.println(f.getName());
+                long lastModified = f.lastModified();
+                Date date = new Date(lastModified);
+                com.hit.pojo.File file1 = new com.hit.pojo.File( f.length(),f.getName(), date);
+                fileList.add(file1);
             }
-
         }
+        return fileList;
     }
     public void createIndex(){
         Path path = Paths.get("F://FMS//" + getPath());

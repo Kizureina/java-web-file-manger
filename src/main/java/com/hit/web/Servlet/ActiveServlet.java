@@ -10,9 +10,12 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 
+/**
+ * @author Yoruko
+ */
 @WebServlet("/activeServlet")
-public class activeServlet extends HttpServlet {
-    private static final Logger logger = LoggerFactory.getLogger(activeServlet.class);
+public class ActiveServlet extends HttpServlet {
+    private static final Logger logger = LoggerFactory.getLogger(ActiveServlet.class);
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

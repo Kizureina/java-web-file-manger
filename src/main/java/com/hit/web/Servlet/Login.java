@@ -30,17 +30,15 @@ public class Login extends HttpServlet {
 
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-        int status = userService.selectUserStatusByName(username);
-
-        if(status == 0){
-            response.getWriter().write("<script>alert(\"登录失败！账号未激活！\");window.location.href='/login.html'</script>");
-            logger.error(username + "登录失败，账号未激活");
-            return;
-        }
-
 
         for (User user : users) {
             if (user.getUserName().equals(username) && user.getPassWord().equals(password)){
+                int status = userService.selectUserStatusByName(username);
+                if(status == 0){
+                    response.getWriter().write("<script>alert(\"登录失败！账号未激活！\");window.location.href='/login.html'</script>");
+                    logger.error(username + "登录失败，账号未激活");
+                    return;
+                }
                 HttpSession session = request.getSession();
                 session.setAttribute("username",user.getUserName());
                 logger.info(username + "登录成功");
@@ -50,7 +48,6 @@ public class Login extends HttpServlet {
         }
         logger.error(username + "登录失败！");
         response.getWriter().write("<script>alert(\"登录失败! >_< 请重试!\");window.location.href='/login.html'</script>");
-//        response.sendRedirect("/login.html");
 
     }
 
