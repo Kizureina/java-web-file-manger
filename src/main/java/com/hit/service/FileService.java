@@ -48,7 +48,7 @@ public class FileService {
             }else {
                 long lastModified = f.lastModified();
                 Date date = new Date(lastModified);
-                com.hit.pojo.File file1 = new com.hit.pojo.File( f.length(),f.getName(), date);
+                com.hit.pojo.File file1 = new com.hit.pojo.File(f.length(),f.getName(), date);
                 fileList.add(file1);
             }
         }
@@ -62,5 +62,17 @@ public class FileService {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+    public static boolean deleteFile(String index){
+        try {
+            Path path1 = Paths.get(index);
+            if (Files.exists(path1)){
+                Files.delete(path1);
+                return true;
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return false;
     }
 }

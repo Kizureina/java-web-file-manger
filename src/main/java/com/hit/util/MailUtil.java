@@ -79,7 +79,7 @@ public class MailUtil implements Runnable {
             Transport.send(message);
             logger.info("向" + email + "邮件成功发送!");
         } catch (Exception e) {
-            logger.error("向" + email + "邮件成功失败!");
+            logger.error("向" + email + "邮件发送失败!");
             e.printStackTrace();
         }
     }

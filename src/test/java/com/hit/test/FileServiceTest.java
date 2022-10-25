@@ -32,5 +32,20 @@ public class FileServiceTest {
 //        File{filesize=0, fileName='数据结构', editTime=Mon Oct 24 23:56:13 CST 2022},
 //        File{filesize=0, fileName='模电', editTime=Mon Oct 24 23:56:13 CST 2022}]
     }
+    @Test
+    public void createFileTest(){
+        String userName = "Shirou";
+        String indexName = "test";
+        FileService fileService = new FileService(userName + "//" + indexName);
+        fileService.createIndex();
+    }
+    @Test
+    public void testDeleteFile(){
+        if (FileService.deleteFile("F://FMS//Shirou//模电//111.pptx")){
+            System.out.println("删除成功！");
+        }else {
+            System.out.println("删除失败！");
+        }
+    }
 }
 

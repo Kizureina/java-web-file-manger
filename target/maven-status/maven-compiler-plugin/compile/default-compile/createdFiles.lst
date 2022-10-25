@@ -7,6 +7,7 @@ com\hit\web\Filter\LoginFilter.class
 com\hit\util\SqlSessionFactoryUtils.class
 com\hit\web\Servlet\Login.class
 com\hit\web\Servlet\ActiveServlet.class
+com\hit\web\Servlet\DeleteFileServlet.class
 com\hit\web\Listener\SessionListener.class
 com\hit\web\Servlet\FileInfoServlet.class
 com\hit\web\Servlet\Register.class
