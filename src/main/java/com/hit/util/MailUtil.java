@@ -57,7 +57,7 @@ public class MailUtil implements Runnable {
             // 1.获取默认session对象
             Session session = Session.getDefaultInstance(properties, new Authenticator() {
                 public PasswordAuthentication getPasswordAuthentication() {
-                    return new PasswordAuthentication("1111111111", "1111111111");
+                    return new PasswordAuthentication("2932347622@qq.com", "lhudzcgyawsndhbi");
                 }
             });
 
@@ -70,7 +70,7 @@ public class MailUtil implements Runnable {
             // 2.3设置邮件主题
             message.setSubject("账号激活");
             // 2.4设置邮件内容
-            String content = "<html><head></head><body><h1>这是一封激活邮件,激活请点击以下链接</h1>" +
+            String content = "<html><head></head><body><h1>这是一封激活邮件,激活账号请点击以下链接</h1>" +
                     "<h3><a href='http://localhost/activeServlet?username=" + username + "&code="
                     + CODE + "'>点击这里"
                     + "</a></h3></body></html>";
