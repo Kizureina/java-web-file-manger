@@ -1,0 +1,7 @@
+# log 不需要提交的任意包含后缀名为log的文件
+*.log
+# Package Files 不需要提交的任意包含后缀名为jar的文件
+*.jar
+*.war
+/src/main/java/com/hit/util/MailUtil.java
+/target
