@@ -13,6 +13,7 @@ E:\Java_IDEA\Maven_test\file-manger\src\main\java\com\hit\service\FileService.ja
 E:\Java_IDEA\Maven_test\file-manger\src\main\java\com\hit\pojo\File.java
 E:\Java_IDEA\Maven_test\file-manger\src\main\java\com\hit\pojo\User.java
 E:\Java_IDEA\Maven_test\file-manger\src\main\java\com\hit\web\Servlet\ActiveServlet.java
+E:\Java_IDEA\Maven_test\file-manger\src\main\java\com\hit\web\Servlet\DestroySessionServlet.java
 E:\Java_IDEA\Maven_test\file-manger\src\main\java\com\hit\util\SqlSessionFactoryUtils.java
 E:\Java_IDEA\Maven_test\file-manger\src\main\java\com\hit\web\Servlet\Checkcode.java
 E:\Java_IDEA\Maven_test\file-manger\src\main\java\com\hit\mapper\UserMapper.java

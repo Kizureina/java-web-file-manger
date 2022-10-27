@@ -22,7 +22,7 @@ public class LoginFilter implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws ServletException, IOException {
         HttpServletRequest req = (HttpServletRequest) request;
-        String[] urls = {"/login.html","/css/","/img/","/js/","/login","/register.html","/register","/selectAllUser","/checkcode","/activeServlet"};
+        String[] urls = {"/login.html","/css/","/img/","/js/","/login","/register.html","/register","/selectAllUser","/checkcode","/activeServlet","/destroySessionServlet"};
         //放行与登录相关的资源
         String url = req.getRequestURL().toString();
         for (String s : urls) {

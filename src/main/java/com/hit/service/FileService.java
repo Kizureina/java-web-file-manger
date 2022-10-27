@@ -63,16 +63,30 @@ public class FileService {
             throw new RuntimeException(e);
         }
     }
-    public static boolean deleteFile(String index){
+    public boolean deleteFile(){
         try {
-            Path path1 = Paths.get(index);
+            Path path1 = Paths.get("F://FMS//" + path);
             if (Files.exists(path1)){
                 Files.delete(path1);
                 return true;
             }
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
+            return false;
         }
         return false;
+    }
+    public boolean renameFile(String oldName, String newName){
+        try {
+            File newFile = new File(path + newName);
+            if (newFile.exists()) {
+                //  确保新的文件名不存在
+                throw new java.io.IOException("file exists");
+            }
+            return new File(path + oldName).renameTo(new File(path + newName));
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 }

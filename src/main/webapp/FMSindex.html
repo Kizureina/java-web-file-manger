@@ -22,18 +22,23 @@
         <el-container style="height: 100%; border: 5px solid #eee">
             <el-container>
                 <el-header style="text-align: right; font-size: 30px">
-                    <el-dropdown style="font-size: 120%">
-<!--                        <i class="el-icon-edit-outline" style="margin-right: 5px"></i>-->
-<!--                        <el-dropdown-menu slot="dropdown">-->
-<!--                            <el-dropdown-item>查看</el-dropdown-item>-->
-<!--                            <el-dropdown-item>新增</el-dropdown-item>-->
-<!--                            <el-dropdown-item>删除</el-dropdown-item>-->
-<!--                        </el-dropdown-menu>-->
+                    <el-dropdown @command="handleCommand" style="font-size: 100%">
+                        <i class="el-icon-s-tools" style="margin-right: 5px"></i>
+                        <el-dropdown-menu slot="dropdown">
+                            <el-dropdown-item command="a">注销账号</el-dropdown-item>
+                        </el-dropdown-menu>
                     </el-dropdown>
-                    <span>{{username}}</span>
+                    <span style="font-family: 'Adobe Caslon Pro Bold',serif ;background-color: #03e6f4">{{username}}</span>
                 </el-header>
                 <template >
-                    <el-button type="primary" @click="open" style="position: absolute;top: 25px;left: 35px;">新建文件夹 <i class="el-icon-folder-add"></i> </el-button>
+                    <el-button type="primary"
+                               @click="open"
+                               style="position: absolute;
+                               top: 25px;
+                               left: 35px;">
+                        新建文件夹
+                        <i class="el-icon-folder-add"></i>
+                    </el-button>
 
                     <el-popover
                             placement="right"
@@ -48,17 +53,60 @@
                             <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
                             <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过500kb</div>
                         </el-upload>
-                        <el-button slot="reference" type="primary" style="position: absolute;top: 25px;left: 195px;">上传<i class="el-icon-upload el-icon--right"></i></el-button>
+                        <el-button slot="reference"
+                                type="primary"
+                                style="position: absolute;
+                                top: 25px;
+                                left: 195px;">
+                            上传
+                            <i class="el-icon-upload el-icon--right"></i>
+                        </el-button>
                     </el-popover>
+
+                    <el-button type="primary"
+                               @click="deleteConfirm"
+                               style="position: absolute;
+                               top: 25px;
+                               left: 315px;">
+                        删除
+                        <i class="el-icon-delete"></i>
+                    </el-button>
+
+                    <el-button type="primary"
+                               @click="renameFile"
+                               style="position: absolute;
+                               top: 25px;
+                               left: 415px;">
+                        重命名
+                        <i class="el-icon-edit"></i>
+                    </el-button>
+
                 </template>
                 <el-main>
-<!--                    <i class="el-icon-folder-opened" style="margin-right: 5px"></i>-->
-                    <el-table :data="tableData">
-                        <el-table-column prop="name" label="文件名" width="540">
+                    <el-table
+                            ref="multipleTable"
+                            :data="tableData"
+                            tooltip-effect="dark"
+                            style="width: 100%"
+                            @selection-change="handleSelectionChange">
+                        <el-table-column
+                                type="selection"
+                                width="55">
                         </el-table-column>
-                        <el-table-column prop="date" label="修改日期" width="500">
+                        <el-table-column
+                                prop="name"
+                                label="文件名"
+                                width="540">
                         </el-table-column>
-                        <el-table-column prop="address" label="大小">
+                        <el-table-column
+                                label="修改日期"
+                                width="500">
+                            <template slot-scope="scope">{{ scope.row.date }}</template>
+                        </el-table-column>
+                        <el-table-column
+                                prop="size"
+                                label="大小"
+                                show-overflow-tooltip>
                         </el-table-column>
                     </el-table>
                 </el-main>
@@ -70,121 +118,5 @@
 <script src="js/vue.min.js"></script>
 <script src="js/axois.min.js"></script>
 <script src="https://unpkg.com/element-ui/lib/index.js"></script>
-<!--<script src="https://raw.githubusercontent.com/douglascrockford/JSON-js/master/json2.js"></script>-->
-<script>
-    vm = new Vue({
-        el:"#app",
-        data() {
-            return {
-                editdate: '',
-                filename: '',
-                size: '',
-                username:"",
-                tableData:{},
-                fileList: []
-            }
-        },
-        methods: {
-            getFileInfo(){
-                axios.get("http://localhost//fileInfoServlet")
-                    .then(resp=>{
-                        console.log(resp.data);
-                        var obj = resp.data;
-                        this.tableData = Array(obj.length);
-                        for (let i = 0; i < obj.length; i++){
-                            let f = obj[i];
-                            let rawDate = new Date(f.editTime);
-                            d = dateFormat("YYYY-mm-dd HH:MM", rawDate);
-                            this.tableData.push({
-                                name: f.fileName,
-                                date: d,
-                                address: f.filesize
-                            })
-                        }
-                    });
-            },
-
-            getUserName() {
-                axios.get("http://localhost/userInfo")
-                    //then获取成功；response成功后的返回值（对象）
-                    .then(response=>{
-                        this.username = response.data;
-                    })
-                    //获取失败
-                    .catch(error=>{
-                        console.log(error);
-                        alert('网络错误!');
-                    })
-            },
-            open() {
-                this.$prompt('请输入文件夹名', '提示', {
-                    confirmButtonText: '确定',
-                    cancelButtonText: '取消'
-                    // inputPattern: /[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?/,
-                    // inputErrorMessage: '文件名格式不正确'
-                }).then(({ value }) => {
-                    if (value.length > 64){
-                        this.$message({
-                            type: 'error',
-                            message: '文件名过长'
-                        });
-                        return;
-                    }
-                    axios.get("http://localhost/createIndexServlet?indexName=" + value)
-                        .then(resp=>{
-                            this.$message({
-                                type: 'success',
-                                message: '新建文件夹名为: ' + value
-                            });
-                        })
-                        .catch(error=>{
-                            console.log(error);
-                            alert('出错了!请检查文件名！');
-                        })
-                }).catch(() => {
-                    this.$message({
-                        type: 'info',
-                        message: '取消输入'
-                    });
-                });
-            },
-            upload() {
-                this.$alert('<template><el-upload\n' +
-                    '  class="upload-demo"\n' +
-                    '  drag\n' +
-                    '  action="https://jsonplaceholder.typicode.com/posts/"\n' +
-                    '  multiple>\n' +
-                    '  <i class="el-icon-upload"></i>\n' +
-                    '  <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>\n' +
-                    '  <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过500kb</div>\n' +
-                    '</el-upload></template>', 'HTML 片段', {
-                    dangerouslyUseHTMLString: true
-                })
-            }
-        },
-        mounted(){
-            this.getUserName();
-            this.getFileInfo();
-        }
-    });
-    function dateFormat(fmt, date) {
-        let ret;
-        const opt = {
-            "Y+": date.getFullYear().toString(),        // 年
-            "m+": (date.getMonth() + 1).toString(),     // 月
-            "d+": date.getDate().toString(),            // 日
-            "H+": date.getHours().toString(),           // 时
-            "M+": date.getMinutes().toString(),         // 分
-            "S+": date.getSeconds().toString()          // 秒
-            // 有其他格式化字符需求可以继续添加，必须转化成字符串
-        };
-        for (let k in opt) {
-            ret = new RegExp("(" + k + ")").exec(fmt);
-            if (ret) {
-                fmt = fmt.replace(ret[1], (ret[1].length === 1) ? (opt[k]) : (opt[k].padStart(ret[1].length, "0")))
-            }
-        }
-        return fmt;
-    }
-</script>
+<script src="js/index.js"></script>
 </html>

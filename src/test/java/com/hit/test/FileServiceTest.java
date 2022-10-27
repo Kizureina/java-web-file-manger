@@ -41,10 +41,20 @@ public class FileServiceTest {
     }
     @Test
     public void testDeleteFile(){
-        if (FileService.deleteFile("F://FMS//Shirou//模电//111.pptx")){
+        FileService fileService = new FileService("F://FMS//Shirou//test12222");
+        if (fileService.deleteFile()){
             System.out.println("删除成功！");
         }else {
             System.out.println("删除失败！");
+        }
+    }
+    @Test
+    public void testRenameFile(){
+        FileService fileService = new FileService("F:\\FMS\\Shirou\\");
+        if(fileService.renameFile("test","test")){
+            System.out.println("重命名成功");
+        }else{
+            System.out.println("重命名失败！");
         }
     }
 }

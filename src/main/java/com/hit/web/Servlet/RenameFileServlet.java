@@ -8,12 +8,14 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
-import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 
-@WebServlet("/deleteFileServlet")
-public class DeleteFileServlet extends HttpServlet {
-    private static final Logger logger = LoggerFactory.getLogger(DeleteFileServlet.class);
+/**
+ * @author Yoruko
+ */
+@WebServlet("/renameFileServlet")
+public class RenameFileServlet extends HttpServlet {
+    private static final Logger logger = LoggerFactory.getLogger(RenameFileServlet.class);
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
@@ -21,17 +23,20 @@ public class DeleteFileServlet extends HttpServlet {
         String userName = (String) session.getAttribute("username");
         String currentIndex = (String) session.getAttribute("index");
 
-        String indexName = new String(request.getParameter("indexName").getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
+        String oldName = new String(request.getParameter("oldName").getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
+        String newName = new String(request.getParameter("newName").getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
 
-        FileService fileService = currentIndex == null ? new FileService(userName + "//" + indexName): new FileService(userName + "//" + currentIndex + "//" + indexName);
-
-        if (fileService.deleteFile()){
-            logger.info(indexName + "文件删除成功");
+        FileService fileService = currentIndex == null ?
+                new FileService("F:\\FMS\\" + userName + "\\"):
+                new FileService("F:\\FMS\\" + userName + "\\" + currentIndex + "\\");
+        if(fileService.renameFile(oldName, newName)){
+            logger.info(oldName + "文件重命名成功，新文件名为" + newName);
             response.getWriter().write("true");
-        }else{
-            logger.error(indexName + "删除失败！不可删除非空文件夹");
+        }else {
+            logger.info(oldName + "文件重命名失败");
             response.getWriter().write("false");
         }
+
     }
 
     @Override
