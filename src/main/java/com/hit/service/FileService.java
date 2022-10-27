@@ -11,7 +11,7 @@ import java.util.List;
 
 public class FileService {
     private String path;
-
+    public static List<String> CURRENT_FOLDER = new ArrayList<>();
     public String getPath() {
         return path;
     }

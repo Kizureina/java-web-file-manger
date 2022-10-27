@@ -18,7 +18,7 @@ public class FileInfoServlet extends HttpServlet {
         HttpSession session = request.getSession();
         String userName = (String) session.getAttribute("username");
 
-        List<com.hit.pojo.File> fileInfo = FileService.getFileInfo(new File("F:\\FMS\\" + userName));
+        List<com.hit.pojo.File> fileInfo = FileService.getFileInfo(new File("F://FMS//" + userName));
         String s = JSON.toJSONString(fileInfo);
         response.getWriter().write(s);
     }

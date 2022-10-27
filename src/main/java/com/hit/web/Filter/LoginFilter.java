@@ -13,7 +13,6 @@ import java.io.IOException;
 @WebFilter("/*")
 public class LoginFilter implements Filter {
     private static final Logger logger = LoggerFactory.getLogger(LoginFilter.class);
-
     public void init(FilterConfig config) throws ServletException {
     }
 

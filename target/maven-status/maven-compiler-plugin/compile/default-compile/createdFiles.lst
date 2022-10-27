@@ -1,7 +1,9 @@
 com\hit\pojo\User.class
 com\hit\web\Servlet\DestroySessionServlet.class
+com\hit\web\Servlet\BackSuperFolderServlet.class
 com\hit\util\SqlSessionFactoryUtils.class
 com\hit\web\Servlet\Login.class
+com\hit\web\Servlet\GetSubFilesServlet.class
 com\hit\web\Listener\SessionListener.class
 com\hit\web\Servlet\FileInfoServlet.class
 com\hit\web\Servlet\UserInfo.class

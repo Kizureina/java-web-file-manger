@@ -26,6 +26,10 @@ public class DestroySessionServlet extends HttpServlet {
             return;
         }
         session.removeAttribute("username");
+        if (session.getAttribute("index") != null){
+            session.removeAttribute("index");
+        }
+
         logger.info("账号注销成功！");
 
     }

@@ -18,7 +18,6 @@
 </head>
 <body style="background-color: #a6c1ee">
     <div id="app">
-<!--        <h1 style="align-content: center;color: #128686">{{username}}, Welcome to the FileMangerSystem!</h1>-->
         <el-container style="height: 100%; border: 5px solid #eee">
             <el-container>
                 <el-header style="text-align: right; font-size: 30px">
@@ -29,6 +28,8 @@
                         </el-dropdown-menu>
                     </el-dropdown>
                     <span style="font-family: 'Adobe Caslon Pro Bold',serif ;background-color: #03e6f4">{{username}}</span>
+                    <i class="el-icon-user" style="margin-right: 5px"></i>
+
                 </el-header>
                 <template >
                     <el-button type="primary"
@@ -81,6 +82,24 @@
                         <i class="el-icon-edit"></i>
                     </el-button>
 
+                    <el-button type="primary"
+                               @click="backFolder"
+                               style="position: absolute;
+                               top: 25px;
+                               left: 535px;">
+                        后退
+                        <i class="el-icon-back"></i>
+                    </el-button>
+
+                    <el-button type="primary"
+                               @click="openFolder"
+                               style="position: absolute;
+                               top: 25px;
+                               left: 640px;">
+                        打开
+                        <i class="el-icon-right"></i>
+                    </el-button>
+
                 </template>
                 <el-main>
                     <el-table
@@ -105,7 +124,7 @@
                         </el-table-column>
                         <el-table-column
                                 prop="size"
-                                label="大小"
+                                label="文件大小"
                                 show-overflow-tooltip>
                         </el-table-column>
                     </el-table>
@@ -117,6 +136,6 @@
 </body>
 <script src="js/vue.min.js"></script>
 <script src="js/axois.min.js"></script>
-<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+<script src="js/element-ui@2.15.10.js"></script>
 <script src="js/index.js"></script>
 </html>

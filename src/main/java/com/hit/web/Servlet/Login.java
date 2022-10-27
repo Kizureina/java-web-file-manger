@@ -1,6 +1,7 @@
 package com.hit.web.Servlet;
 
 import com.hit.pojo.User;
+import com.hit.service.FileService;
 import com.hit.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,6 +31,7 @@ public class Login extends HttpServlet {
 
         String username = request.getParameter("username");
         String password = request.getParameter("password");
+        FileService.CURRENT_FOLDER.add(username);
 
         for (User user : users) {
             if (user.getUserName().equals(username) && user.getPassWord().equals(password)){

@@ -8,11 +8,55 @@ vm = new Vue({
             username:"",
             tableData:{},
             multipleSelection: [],
-            fileList: [],
-            deleteFlag:''
+            fileList: []
         }
     },
     methods: {
+        backFolder(){
+            axios.get("http://localhost/backSuperFolderServlet")
+                .then(resp => {
+                    var obj = resp.data;
+                    if (obj == null){
+                        this.$message.error('已为根目录！');
+                    }
+                    this.tableData = Array(obj.length);
+
+                    for (let i = 0; i < obj.length; i++){
+                        let f = obj[i];
+                        let rawDate = new Date(f.editTime);
+                        let size = f.filesize > 0 ? f.filesize + "KB" : "-";
+                        d = dateFormat("YYYY-mm-dd HH:MM", rawDate);
+                        this.tableData.push({
+                            name: f.fileName,
+                            date: d,
+                            size: size
+                        })
+                    }
+                });
+        },
+        openFolder(){
+            if (this.multipleSelection.length !== 1){
+                alert("请只选择一个文件进行操作>_<");
+                return;
+            }
+            let folderName = this.multipleSelection[0].name;
+            axios.get("http://localhost/getSubFilesServlet?indexName=" + folderName)
+                .then(resp => {
+                    var obj = resp.data;
+                    this.tableData = Array(obj.length);
+                    for (let i = 0; i < obj.length; i++){
+                        let f = obj[i];
+                        let size = f.filesize > 0 ? f.filesize + "KB" : "-";
+                        let rawDate = new Date(f.editTime);
+                        d = dateFormat("YYYY-mm-dd HH:MM", rawDate);
+                        this.tableData.push({
+                            name: f.fileName,
+                            date: d,
+                            size: size
+                        })
+                    }
+                });
+        },
         renameFile(){
             if (this.multipleSelection.length !== 1){
                 alert("请选择一个文件进行重命名>_<");
@@ -63,15 +107,8 @@ vm = new Vue({
                 type: 'warning'
             }).then(() => {
                 this.deleteFile();
-                if(this.deleteFlag === false){
-                    this.$message({
-                        type: 'success',
-                        message: '删除成功!'
-                    });
-                }else {
-                    this.$message.error('删除失败！不可删除非空文件夹！');
-                }
-            }).catch(() => {
+            }).catch(e => {
+                console.log(e);
                 this.$message({
                     type: 'info',
                     message: '已取消删除'
@@ -83,7 +120,15 @@ vm = new Vue({
                 let url = "http://localhost/deleteFileServlet?indexName=" + this.multipleSelection[i].name;
                 axios.get(encodeURI(url))
                     .then(resp => {
-                        this.deleteFlag = resp.data;
+                        // console.log(resp.data);
+                        if(resp.data === true){
+                            this.$message({
+                                type: 'success',
+                                message: '删除成功!'
+                            });
+                        }else {
+                            this.$message.error('删除失败！不可删除非空文件夹！');
+                        }
                     })
                     .catch(error => {
                         console.log(error);
@@ -149,7 +194,7 @@ vm = new Vue({
             this.$prompt('请输入文件夹名', '提示', {
                 confirmButtonText: '确定',
                 cancelButtonText: '取消'
-                // inputPattern: /[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?/,
+                // inputPattern: /\\*\/\\*/,
                 // inputErrorMessage: '文件名格式不正确'
             }).then(({ value }) => {
                 if (value.length > 64){
