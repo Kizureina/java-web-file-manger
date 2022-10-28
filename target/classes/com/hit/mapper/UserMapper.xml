@@ -13,10 +13,18 @@ namespace
         insert into user(username,password,status)
         values (#{username},#{password},#{status});
     </insert>
+
     <update id="editUserStatus">
         update user
         set
             status = #{status}
+        where username = #{username};
+    </update>
+
+    <update id="changePasswordByName">
+        update user
+        set
+            password = #{password}
         where username = #{username};
     </update>
 

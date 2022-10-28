@@ -20,4 +20,9 @@ public class mailtest {
         UserService userService = new UserService();
         System.out.println(userService.selectUserStatusByName("SerenKawaii"));
     }
+    @Test
+    public void sqlTest3(){
+        UserService userService = new UserService();
+        System.out.println(userService.changePasswordByName("Shirou","123456"));
+    }
 }

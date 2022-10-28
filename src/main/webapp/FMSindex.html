@@ -24,7 +24,8 @@
                     <el-dropdown @command="handleCommand" style="font-size: 100%">
                         <i class="el-icon-s-tools" style="margin-right: 5px"></i>
                         <el-dropdown-menu slot="dropdown">
-                            <el-dropdown-item command="a">注销账号</el-dropdown-item>
+                            <el-dropdown-item command="a">修改密码</el-dropdown-item>
+                            <el-dropdown-item command="b">注销账号</el-dropdown-item>
                         </el-dropdown-menu>
                     </el-dropdown>
                     <span style="font-family: 'Adobe Caslon Pro Bold',serif ;background-color: #03e6f4">{{username}}</span>
@@ -101,10 +102,19 @@
                     </el-button>
 
                     <el-button type="primary"
-                               @click="refresh"
+                               @click="download"
                                style="position: absolute;
                                top: 25px;
                                left: 740px;">
+                        下载
+                        <i class="el-icon-link"></i>
+                    </el-button>
+
+                    <el-button type="primary"
+                               @click="refresh"
+                               style="position: absolute;
+                               top: 25px;
+                               left: 1220px;">
                         刷新
                         <i class="el-icon-refresh"></i>
                     </el-button>

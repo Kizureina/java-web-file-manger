@@ -89,4 +89,12 @@ public class FileService {
             return false;
         }
     }
+//    public boolean downloadFile(File file){
+//        if(file.isDirectory()){
+//            //是目录直接退出
+//            return false;
+//        }
+//
+//        return true;
+//    }
 }

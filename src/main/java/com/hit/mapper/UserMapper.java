@@ -14,4 +14,5 @@ public interface UserMapper {
 
     void editUserStatus(@Param("username") String username, @Param("status")int status);
     int selectUserStatusByName(String username);
+    boolean changePasswordByName(@Param("username") String username, @Param("password") String password);
 }

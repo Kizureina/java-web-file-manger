@@ -12,6 +12,25 @@ vm = new Vue({
         }
     },
     methods: {
+        download(){
+            if (this.multipleSelection.length !== 1){
+                alert("请只选择一个文件进行操作>_<");
+                return;
+            }
+            let fileName = this.multipleSelection[0].name;
+            axios.get("http://localhost/fileDownloadServlet?fileName=" + fileName)
+                .then(resp => {
+                    console.log("下载请求成功");
+                    if (resp.data !== false){
+                        window.location.href = "/fileDownloadServlet?fileName=" + fileName;
+                    }else{
+                        this.$message.error('不可下载文件夹！');
+                    }
+                })
+                .catch(e =>{
+                    alert("出错了！");
+                })
+        },
         refresh(){
             axios.get("http://localhost/fileInfoServlet")
                 .then(resp=>{
@@ -70,8 +89,8 @@ vm = new Vue({
                     this.tableData = Array(obj.length);
                     for (let i = 0; i < obj.length; i++){
                         let f = obj[i];
-                        let size = f.filesize > 0 ? f.filesize + "KB" : "-";
                         let rawDate = new Date(f.editTime);
+                        let size = f.filesize > 0 ? f.filesize + "KB" : "-";
                         d = dateFormat("YYYY-mm-dd HH:MM", rawDate);
                         this.tableData.push({
                             name: f.fileName,
@@ -172,15 +191,52 @@ vm = new Vue({
         handleSelectionChange(val) {
             this.multipleSelection = val;
         },
-        handleCommand(a){
-            axios.get("http://localhost/destroySessionServlet")
-                .then(resp => {
-                    alert("注销成功！");
-                    window.location.href='/login.html';
-                })
-                .catch(e =>{
-                    alert("注销失败!请重试！");
+        handleCommand(command){
+            if (command === "b"){
+                axios.get("http://localhost/destroySessionServlet")
+                    .then(resp => {
+                        alert("注销成功！");
+                        window.location.href='/login.html';
+                    })
+                    .catch(e =>{
+                        alert("注销失败!请重试！");
+                    });
+            }else{
+                this.$prompt('请输入修改后的密码', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    inputPattern: /^\w+$/,
+                    inputErrorMessage: '密码格式不正确，密码只能由数字字母和下划线'
+                }).then(({ value }) => {
+                    if (value.length > 20){
+                        this.$message({
+                            type: 'error',
+                            message: '新密码过长'
+                        });
+                        return;
+                    }
+                    axios({
+                        method : "POST",
+                        url : "http://localhost/changePasswordServlet",
+                        data : "password=" + value
+                    })
+                        .then(resp=>{
+                            this.$message({
+                                type: 'success',
+                                message: '密码修改成功'
+                            });
+                        })
+                        .catch(error=>{
+                            console.log(error);
+                            this.$message.error('出错了!请重试');
+                        })
+                }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '取消输入'
+                    });
                 });
+            }
         },
         getFileInfo(){
             axios.get("http://localhost/fileInfoServlet")

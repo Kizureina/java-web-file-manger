@@ -18,7 +18,7 @@ public class GetSubFilesServlet extends HttpServlet {
     private static final Logger logger = LoggerFactory.getLogger(GetSubFilesServlet.class);
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("text/html;charset=utf-8");
+        response.setContentType("text/json;charset=utf-8");
         HttpSession session = request.getSession();
         String userName = (String) session.getAttribute("username");
         String currentIndex = (String) session.getAttribute("index");

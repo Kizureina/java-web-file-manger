@@ -30,7 +30,7 @@ public class BackSuperFolderServlet extends HttpServlet {
             return;
         }
         String currentIndex = (String) session.getAttribute("index");
-        response.setContentType("text/html;charset=utf-8");
+        response.setContentType("text/json;charset=utf-8");
 
         List<File> fileInfo;
         if(currentIndex.equals(currentFolder)){

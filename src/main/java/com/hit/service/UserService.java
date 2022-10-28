@@ -21,11 +21,9 @@ public class UserService {
 
     public List<User> selectAllUsers(){
         SqlSession sqlSession = sqlSessionFactory.openSession();
-
         UserMapper mapper = sqlSession.getMapper(UserMapper.class);
 
-        List<User> users = mapper.selectAllUsers();
-        return users;
+        return mapper.selectAllUsers();
     }
     public int insertUser(String username, String password, int status){
         SqlSession sqlSession = sqlSessionFactory.openSession();
@@ -41,7 +39,6 @@ public class UserService {
         sqlSession.commit();
     }
     public boolean doRegister(String userName, String email) {
-        //生成激活码
         code = Checkcode.getCodeString();
         //保存成功则通过线程的方式给用户发送一封邮件
         try {
@@ -56,5 +53,12 @@ public class UserService {
         SqlSession sqlSession = sqlSessionFactory.openSession();
         UserMapper mapper = sqlSession.getMapper(UserMapper.class);
         return mapper.selectUserStatusByName(username);
+    }
+    public boolean changePasswordByName(String username, String password){
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+        boolean b = mapper.changePasswordByName(username, password);
+        sqlSession.commit();
+        return b;
     }
 }
