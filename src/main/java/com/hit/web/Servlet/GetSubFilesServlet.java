@@ -29,9 +29,18 @@ public class GetSubFilesServlet extends HttpServlet {
         if (currentIndex == null){
             session.setAttribute("index",indexName);
             fileInfo = FileService.getFileInfo(new java.io.File("F://FMS//" + userName + "//" + indexName));
+            if (fileInfo == null){
+                response.getWriter().write(JSON.toJSONString(0));
+                return;
+            }
         } else {
             session.setAttribute("index",currentIndex + "//" + indexName);
+
             fileInfo = FileService.getFileInfo(new java.io.File("F://FMS//" + userName + "//" + currentIndex + "//" + indexName));
+            if(fileInfo == null){
+                response.getWriter().write(JSON.toJSONString(0));
+                return;
+            }
         }
         String s = JSON.toJSONString(fileInfo);
         response.getWriter().write(s);

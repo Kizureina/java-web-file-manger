@@ -18,30 +18,47 @@ import java.util.List;
  */
 @WebServlet("/backSuperFolderServlet")
 public class BackSuperFolderServlet extends HttpServlet {
-    public static int flag = 0;
     private static final Logger logger = LoggerFactory.getLogger(BackSuperFolderServlet.class);
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if(flag != 0){
-            return;
-        }
         String currentFolder = FileService.CURRENT_FOLDER.get(FileService.CURRENT_FOLDER.size() - 1);
         HttpSession session = request.getSession();
         String userName = (String) session.getAttribute("username");
+        if(currentFolder.equals(userName)){
+            String s = JSON.toJSONString(null);
+            response.getWriter().write(s);
+            return;
+        }
         String currentIndex = (String) session.getAttribute("index");
         response.setContentType("text/html;charset=utf-8");
 
-        currentIndex = currentIndex.replace("//" + currentFolder,"");
-        session.setAttribute("index",currentIndex);
         List<File> fileInfo;
-        if (currentIndex.equals(currentFolder)){
-            fileInfo = FileService.getFileInfo(new java.io.File("F://FMS//" + userName));
-        }else{
-            fileInfo = FileService.getFileInfo(new java.io.File("F://FMS//" + userName + "//" + currentIndex));
+        if(currentIndex.equals(currentFolder)){
+            FileService.CURRENT_FOLDER.clear();
+            FileService.CURRENT_FOLDER.add(userName);
+            session.removeAttribute("index");
+            try {
+                fileInfo = FileService.getFileInfo(new java.io.File("F://FMS//" + userName));
+            } catch (Exception e) {
+                e.printStackTrace();
+                response.getWriter().write(JSON.toJSONString(0));
+                return;
+            }
+        }else {
+            String nowIndex = currentIndex.replace("//" + currentFolder,"");
+            session.setAttribute("index",nowIndex);
+            try {
+                fileInfo = FileService.getFileInfo(new java.io.File("F://FMS//" + userName + "//" + nowIndex));
+            } catch (Exception e) {
+                e.printStackTrace();
+                String s = JSON.toJSONString(0);
+                response.getWriter().write(s);
+                return;
+            }
         }
         String s = JSON.toJSONString(fileInfo);
         response.getWriter().write(s);
-        logger.info("返回了上一级目录" + currentFolder);
+        logger.info("返回了" + currentIndex + "的上一级目录");
         FileService.CURRENT_FOLDER.remove(currentFolder);
     }
 

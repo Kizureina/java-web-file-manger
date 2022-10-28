@@ -1,5 +1,6 @@
 package com.hit.web.Servlet;
 
+import com.hit.service.FileService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,7 +30,7 @@ public class DestroySessionServlet extends HttpServlet {
         if (session.getAttribute("index") != null){
             session.removeAttribute("index");
         }
-
+        FileService.CURRENT_FOLDER.clear();
         logger.info("账号注销成功！");
 
     }

@@ -12,12 +12,32 @@ vm = new Vue({
         }
     },
     methods: {
+        refresh(){
+            axios.get("http://localhost/fileInfoServlet")
+                .then(resp=>{
+                    console.log(resp.data);
+                    var obj = resp.data;
+                    this.tableData = Array(obj.length);
+                    for (let i = 0; i < obj.length; i++){
+                        let f = obj[i];
+                        let size = f.filesize > 0 ? f.filesize + "KB" : "-";
+                        let rawDate = new Date(f.editTime);
+                        d = dateFormat("YYYY-mm-dd HH:MM", rawDate);
+                        this.tableData.push({
+                            name: f.fileName,
+                            date: d,
+                            size: size
+                        })
+                    }
+                });
+        },
         backFolder(){
             axios.get("http://localhost/backSuperFolderServlet")
                 .then(resp => {
                     var obj = resp.data;
                     if (obj == null){
                         this.$message.error('已为根目录！');
+                        return;
                     }
                     this.tableData = Array(obj.length);
 
@@ -43,6 +63,10 @@ vm = new Vue({
             axios.get("http://localhost/getSubFilesServlet?indexName=" + folderName)
                 .then(resp => {
                     var obj = resp.data;
+                    if (obj === 0){
+                        this.$message.error('请选择文件夹！');
+                        return;
+                    }
                     this.tableData = Array(obj.length);
                     for (let i = 0; i < obj.length; i++){
                         let f = obj[i];

@@ -8,17 +8,21 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 @WebServlet("/fileInfoServlet")
 public class FileInfoServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("text/html;charset=utf-8");
         HttpSession session = request.getSession();
+        response.setContentType("text/html;charset=utf-8");
         String userName = (String) session.getAttribute("username");
+        String currentIndex = (String) session.getAttribute("index");
 
-        List<com.hit.pojo.File> fileInfo = FileService.getFileInfo(new File("F://FMS//" + userName));
+        List<com.hit.pojo.File> fileInfo = currentIndex == null ?
+                FileService.getFileInfo(new File("F://FMS//" + userName)):
+                FileService.getFileInfo(new File("F://FMS//" + userName + "//" + currentIndex));
         String s = JSON.toJSONString(fileInfo);
         response.getWriter().write(s);
     }
