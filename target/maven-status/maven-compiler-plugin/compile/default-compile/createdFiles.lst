@@ -20,4 +20,5 @@ com\hit\web\Servlet\DeleteFileServlet.class
 com\hit\web\Servlet\ChangePasswordServlet.class
 com\hit\web\Servlet\Register.class
 com\hit\web\Servlet\RenameFileServlet.class
+com\hit\web\Servlet\FileUploadServlet.class
 com\hit\service\UserService.class

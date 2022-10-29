@@ -18,18 +18,25 @@ vm = new Vue({
                 return;
             }
             let fileName = this.multipleSelection[0].name;
-            axios.get("http://localhost/fileDownloadServlet?fileName=" + fileName)
-                .then(resp => {
-                    console.log("下载请求成功");
-                    if (resp.data !== false){
-                        window.location.href = "/fileDownloadServlet?fileName=" + fileName;
-                    }else{
-                        this.$message.error('不可下载文件夹！');
-                    }
-                })
-                .catch(e =>{
-                    alert("出错了！");
-                })
+            if (fileName.indexOf(".") !== -1){
+                let url = "/fileDownloadServlet?fileName=" + fileName;
+                window.location.href = encodeURI(url);
+            }else {
+                this.$message.error('不可下载文件夹！');
+            }
+
+            // axios.get("http://localhost/fileDownloadServlet?fileName=" + fileName)
+            //     .then(resp => {
+            //         console.log("下载请求成功");
+            //         if (resp.data !== false){
+            //             window.location.href = "/fileDownloadServlet?fileName=" + fileName;
+            //         }else{
+            //             this.$message.error('不可下载文件夹！');
+            //         }
+            //     })
+            //     .catch(e =>{
+            //         alert("出错了！");
+            //     })
         },
         refresh(){
             axios.get("http://localhost/fileInfoServlet")
@@ -39,7 +46,15 @@ vm = new Vue({
                     this.tableData = Array(obj.length);
                     for (let i = 0; i < obj.length; i++){
                         let f = obj[i];
-                        let size = f.filesize > 0 ? f.filesize + "KB" : "-";
+                        let size = f.filesize > 0 ? f.filesize : "-";
+                        if (size > 1024*1024 && size < 1024*1024*1024){
+                            size = Number(size / 1024 * 1024).toFixed(2) + "M";
+                        }else if (size > 1024*1024*1024){
+                            size = Number(size / (1024 * 1024 * 1024)).toFixed(2) + "G";
+                        }else if (size < 1024*1024){
+                            size = Number(size / 1024).toFixed(2) + "K";
+                        }else {
+                        }
                         let rawDate = new Date(f.editTime);
                         d = dateFormat("YYYY-mm-dd HH:MM", rawDate);
                         this.tableData.push({
@@ -63,7 +78,15 @@ vm = new Vue({
                     for (let i = 0; i < obj.length; i++){
                         let f = obj[i];
                         let rawDate = new Date(f.editTime);
-                        let size = f.filesize > 0 ? f.filesize + "KB" : "-";
+                        let size = f.filesize > 0 ? f.filesize : "-";
+                        if (size > 1024*1024 && size < 1024*1024*1024){
+                            size = Number(size / 1024 * 1024).toFixed(2) + "M";
+                        }else if (size > 1024*1024*1024){
+                            size = Number(size / (1024 * 1024 * 1024)).toFixed(2) + "G";
+                        }else if (size < 1024*1024){
+                            size = Number(size / 1024).toFixed(2) + "K";
+                        }else {
+                        }
                         d = dateFormat("YYYY-mm-dd HH:MM", rawDate);
                         this.tableData.push({
                             name: f.fileName,
@@ -90,7 +113,15 @@ vm = new Vue({
                     for (let i = 0; i < obj.length; i++){
                         let f = obj[i];
                         let rawDate = new Date(f.editTime);
-                        let size = f.filesize > 0 ? f.filesize + "KB" : "-";
+                        let size = f.filesize > 0 ? f.filesize : "-";
+                        if (size > 1024*1024 && size < 1024*1024*1024){
+                            size = Number(size / 1024 / 1024).toFixed(2) + "M";
+                        }else if (size > 1024*1024*1024){
+                            size = Number(size / (1024 * 1024 * 1024)).toFixed(2) + "G";
+                        }else if (size < 1024*1024){
+                            size = Number(size / 1024).toFixed(2) + "K";
+                        }else {
+                        }
                         d = dateFormat("YYYY-mm-dd HH:MM", rawDate);
                         this.tableData.push({
                             name: f.fileName,
@@ -246,7 +277,15 @@ vm = new Vue({
                     this.tableData = Array(obj.length);
                     for (let i = 0; i < obj.length; i++){
                         let f = obj[i];
-                        let size = f.filesize > 0 ? f.filesize + "KB" : "-";
+                        let size = f.filesize > 0 ? f.filesize : "-";
+                        if (size > 1024*1024 && size < 1024*1024*1024){
+                            size = Number(size / 1024*1024).toFixed(2) + "M";
+                        }else if (size > 1024*1024*1024){
+                            size = Number(size / (1024 * 1024 * 1024)).toFixed(2) + "G";
+                        }else if (size < 1024*1024){
+                            size = Number(size / 1024).toFixed(2) + "K";
+                        }else {
+                        }
                         let rawDate = new Date(f.editTime);
                         d = dateFormat("YYYY-mm-dd HH:MM", rawDate);
                         this.tableData.push({
@@ -308,7 +347,7 @@ vm = new Vue({
             this.$alert('<template><el-upload\n' +
                 '  class="upload-demo"\n' +
                 '  drag\n' +
-                '  action="https://jsonplaceholder.typicode.com/posts/"\n' +
+                '  action="http://localhost/fileUploadServlet"\n' +
                 '  multiple>\n' +
                 '  <i class="el-icon-upload"></i>\n' +
                 '  <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>\n' +
@@ -316,6 +355,10 @@ vm = new Vue({
                 '</el-upload></template>', 'HTML 片段', {
                 dangerouslyUseHTMLString: true
             })
+            this.$message({
+                type: 'success',
+                message: '已上传'
+            });
         }
     },
     mounted(){

@@ -12,6 +12,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
@@ -21,9 +22,10 @@ public class FileDownloadServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("application/multipart/form-data;charset=utf-8");
+        // 用于文件传输
         String fileName = new String(request.getParameter("fileName").getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
-        response.setHeader("Content-Disposition", "attachment;filename=" + fileName);
-
+        response.setHeader("Content-Disposition", "attachment;filename*=UTF-8''" + URLEncoder.encode(fileName,"UTF-8"));
+        // 强制浏览器下载文件，解决中文乱码
         HttpSession session = request.getSession();
         String userName = (String) session.getAttribute("username");
         String currentIndex = (String) session.getAttribute("index");
