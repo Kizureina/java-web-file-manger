@@ -19,6 +19,7 @@ E:\Java_IDEA\Maven_test\file-manger\src\main\java\com\hit\web\Servlet\DeleteFile
 E:\Java_IDEA\Maven_test\file-manger\src\main\java\com\hit\service\FileService.java
 E:\Java_IDEA\Maven_test\file-manger\src\main\java\com\hit\web\Servlet\BackSuperFolderServlet.java
 E:\Java_IDEA\Maven_test\file-manger\src\main\java\com\hit\web\Servlet\RenameFileServlet.java
+E:\Java_IDEA\Maven_test\file-manger\src\main\java\com\hit\web\Servlet\FileUploadServlet.java
 E:\Java_IDEA\Maven_test\file-manger\src\main\java\com\hit\web\Servlet\ActiveServlet.java
 E:\Java_IDEA\Maven_test\file-manger\src\main\java\com\hit\web\Servlet\ChangePasswordServlet.java
 E:\Java_IDEA\Maven_test\file-manger\src\main\java\com\hit\mapper\UserMapper.java

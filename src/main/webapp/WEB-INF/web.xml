@@ -4,7 +4,21 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
     <session-config>
-        <session-timeout>15</session-timeout>
+        <session-timeout>35</session-timeout>
     </session-config>
+    <!-- 禁止不安全的http方法 -->
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>fortune</web-resource-name>
+            <url-pattern>/*</url-pattern>
+            <http-method>PUT</http-method>
+            <http-method>DELETE</http-method>
+            <http-method>HEAD</http-method>
+            <!-- 			<http-method>OPTIONS</http-method> -->
+            <http-method>TRACE</http-method>
+            <http-method>PATCH</http-method>
+        </web-resource-collection>
+        <auth-constraint/>
+    </security-constraint>
 </web-app>
 

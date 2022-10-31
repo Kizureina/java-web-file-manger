@@ -362,6 +362,7 @@ vm = new Vue({
         }
     },
     mounted(){
+        axios.defaults.withCredentials = true;
         this.getUserName();
         this.getFileInfo();
     }
