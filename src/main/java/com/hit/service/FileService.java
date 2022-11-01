@@ -10,6 +10,8 @@ import java.util.Date;
 import java.util.List;
 
 public class FileService {
+    public static String ROOT_PATH = "F://FMS//";
+    public static String HOST = "localhost";
     private String path;
     public static List<String> CURRENT_FOLDER = new ArrayList<>();
     public String getPath() {
@@ -55,7 +57,7 @@ public class FileService {
         return fileList;
     }
     public void createIndex(){
-        Path path = Paths.get("F://FMS//" + getPath());
+        Path path = Paths.get(FileService.ROOT_PATH + getPath());
         try {
             Path pathCreate = Files.createDirectory(path);
             System.out.println(pathCreate);
@@ -65,7 +67,7 @@ public class FileService {
     }
     public boolean deleteFile(){
         try {
-            Path path1 = Paths.get("F://FMS//" + path);
+            Path path1 = Paths.get(FileService.ROOT_PATH + path);
             if (Files.exists(path1)){
                 Files.delete(path1);
                 return true;

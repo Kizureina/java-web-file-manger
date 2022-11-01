@@ -31,7 +31,7 @@ public class FileUploadServlet extends HttpServlet {
 
         String path = currentIndex == null ? userName: userName + "//" + currentIndex;
 
-        String savePath ="F://FMS//" + path;
+        String savePath = FileService.ROOT_PATH + path;
         File file = new File(savePath);
         //判断上传文件的保存目录是否存在
         if (!file.exists() && !file.isDirectory()) {

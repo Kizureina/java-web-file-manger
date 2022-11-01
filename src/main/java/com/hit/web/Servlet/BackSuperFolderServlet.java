@@ -38,7 +38,7 @@ public class BackSuperFolderServlet extends HttpServlet {
             FileService.CURRENT_FOLDER.add(userName);
             session.removeAttribute("index");
             try {
-                fileInfo = FileService.getFileInfo(new java.io.File("F://FMS//" + userName));
+                fileInfo = FileService.getFileInfo(new java.io.File(FileService.ROOT_PATH + userName));
             } catch (Exception e) {
                 e.printStackTrace();
                 response.getWriter().write(JSON.toJSONString(0));
@@ -48,7 +48,7 @@ public class BackSuperFolderServlet extends HttpServlet {
             String nowIndex = currentIndex.replace("//" + currentFolder,"");
             session.setAttribute("index",nowIndex);
             try {
-                fileInfo = FileService.getFileInfo(new java.io.File("F://FMS//" + userName + "//" + nowIndex));
+                fileInfo = FileService.getFileInfo(new java.io.File(FileService.ROOT_PATH + userName + "//" + nowIndex));
             } catch (Exception e) {
                 e.printStackTrace();
                 String s = JSON.toJSONString(0);

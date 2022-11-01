@@ -22,8 +22,8 @@ public class FileInfoServlet extends HttpServlet {
         String currentIndex = (String) session.getAttribute("index");
 
         List<com.hit.pojo.File> fileInfo = currentIndex == null ?
-                FileService.getFileInfo(new File("F://FMS//" + userName)):
-                FileService.getFileInfo(new File("F://FMS//" + userName + "//" + currentIndex));
+                FileService.getFileInfo(new File(FileService.ROOT_PATH + userName)):
+                FileService.getFileInfo(new File(FileService.ROOT_PATH + userName + "//" + currentIndex));
         String s = JSON.toJSONString(fileInfo);
         response.getWriter().write(s);
     }

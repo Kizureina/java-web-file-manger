@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+/**
+ * @author Yoruko
+ */
 @WebFilter("/*")
 public class LoginFilter implements Filter {
     private static final Logger logger = LoggerFactory.getLogger(LoginFilter.class);
@@ -41,7 +44,7 @@ public class LoginFilter implements Filter {
             String origin = req.getHeader("Origin");
 
             resp.setHeader("Access-Control-Allow-Origin", origin);
-            logger.info(origin);
+//            logger.info(origin);
             // 允许带有cookie访问
             resp.setHeader("Access-Control-Allow-Credentials", "true");
 

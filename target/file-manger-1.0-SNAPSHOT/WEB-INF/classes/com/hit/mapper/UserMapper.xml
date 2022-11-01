@@ -10,13 +10,32 @@ namespace
         <result column="password" property="passWord"/>
     </resultMap>
     <insert id="insertUserByName">
-        insert into user(username,password)
-        values (#{username},#{password});
+        insert into user(username,password,status)
+        values (#{username},#{password},#{status});
     </insert>
 
+    <update id="editUserStatus">
+        update user
+        set
+            status = #{status}
+        where username = #{username};
+    </update>
+
+    <update id="changePasswordByName">
+        update user
+        set
+            password = #{password}
+        where username = #{username};
+    </update>
 
     <select id="selectAllUsers" resultMap="userResultMap">
         select *
         from user;
+    </select>
+
+    <select id="selectUserStatusByName" resultType="java.lang.Integer">
+        select status
+        from user
+        where username = #{username};
     </select>
 </mapper>

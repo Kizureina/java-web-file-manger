@@ -3,11 +3,158 @@
 <head>
     <meta charset="UTF-8">
     <title>FileMangerSystemDemo</title>
+    <link rel="icon" href="img/login.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <style>
+        .el-header {
+            background-color: #B3C0D1;
+            color: #333;
+            line-height: 60px;
+        }
+        .el-aside {
+            color: #333;
+        }
+    </style>
 </head>
-<body style="background-color: bisque">
-<div class="content">
-    <h1 style="align-content: center;color: #128686">Welcome to the FIleMangerSystemDemo!</h1>
-    <p>others has been developing........</p>
-</div>
+<body style="background-color: #a6c1ee">
+    <div id="app">
+        <el-container style="height: 100%; border: 5px solid #eee">
+            <el-container>
+                <el-header style="text-align: right; font-size: 30px">
+                    <el-dropdown @command="handleCommand" style="font-size: 100%">
+                        <i class="el-icon-s-tools" style="margin-right: 5px"></i>
+                        <el-dropdown-menu slot="dropdown">
+                            <el-dropdown-item command="a">修改密码</el-dropdown-item>
+                            <el-dropdown-item command="b">注销账号</el-dropdown-item>
+                        </el-dropdown-menu>
+                    </el-dropdown>
+                    <span style="font-family: 'Adobe Caslon Pro Bold',serif ;background-color: #03e6f4">{{username}}</span>
+                    <i class="el-icon-user" style="margin-right: 5px"></i>
+
+                </el-header>
+                <template >
+                    <el-button type="primary"
+                               @click="open"
+                               style="position: absolute;
+                               top: 25px;
+                               left: 35px;">
+                        新建文件夹
+                        <i class="el-icon-folder-add"></i>
+                    </el-button>
+
+                    <el-popover
+                            placement="right"
+                            width="380"
+                            trigger="click">
+                        <el-upload
+                                class="upload-demo"
+                                drag
+                                action="http://localhost/fileUploadServlet"
+                                multiple>
+                            <i class="el-icon-upload"></i>
+                            <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+                            <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过500kb</div>
+                        </el-upload>
+                        <el-button slot="reference"
+                                type="primary"
+                                style="position: absolute;
+                                top: 25px;
+                                left: 195px;">
+                            上传
+                            <i class="el-icon-upload el-icon--right"></i>
+                        </el-button>
+                    </el-popover>
+
+                    <el-button type="primary"
+                               @click="deleteConfirm"
+                               style="position: absolute;
+                               top: 25px;
+                               left: 315px;">
+                        删除
+                        <i class="el-icon-delete"></i>
+                    </el-button>
+
+                    <el-button type="primary"
+                               @click="renameFile"
+                               style="position: absolute;
+                               top: 25px;
+                               left: 415px;">
+                        重命名
+                        <i class="el-icon-edit"></i>
+                    </el-button>
+
+                    <el-button type="primary"
+                               @click="backFolder"
+                               style="position: absolute;
+                               top: 25px;
+                               left: 535px;">
+                        后退
+                        <i class="el-icon-back"></i>
+                    </el-button>
+
+                    <el-button type="primary"
+                               @click="openFolder"
+                               style="position: absolute;
+                               top: 25px;
+                               left: 640px;">
+                        打开
+                        <i class="el-icon-right"></i>
+                    </el-button>
+
+                    <el-button type="primary"
+                               @click="download"
+                               style="position: absolute;
+                               top: 25px;
+                               left: 740px;">
+                        下载
+                        <i class="el-icon-link"></i>
+                    </el-button>
+
+                    <el-button type="primary"
+                               @click="refresh"
+                               style="position: absolute;
+                               top: 25px;
+                               left: 1210px;">
+                        刷新
+                        <i class="el-icon-refresh"></i>
+                    </el-button>
+
+                </template>
+                <el-main>
+                    <el-table
+                            ref="multipleTable"
+                            :data="tableData"
+                            tooltip-effect="dark"
+                            style="width: 100%"
+                            @selection-change="handleSelectionChange">
+                        <el-table-column
+                                type="selection"
+                                width="55">
+                        </el-table-column>
+                        <el-table-column
+                                prop="name"
+                                label="文件名"
+                                width="540">
+                        </el-table-column>
+                        <el-table-column
+                                label="修改日期"
+                                width="500">
+                            <template slot-scope="scope">{{ scope.row.date }}</template>
+                        </el-table-column>
+                        <el-table-column
+                                prop="size"
+                                label="文件大小"
+                                show-overflow-tooltip>
+                        </el-table-column>
+                    </el-table>
+                </el-main>
+            </el-container>
+        </el-container>
+
+    </div>
 </body>
+<script src="js/vue.min.js"></script>
+<script src="js/axois.min.js"></script>
+<script src="js/element-ui@2.15.10.js"></script>
+<script src="js/index.js"></script>
 </html>

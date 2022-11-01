@@ -5,42 +5,84 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
     <title>用户注册</title>
     <link rel="stylesheet"  href="css/style.css" />
+    <link rel="icon" href="img/login.ico" type="image/x-icon">
+
 <body>
-<div class="login">
-    <h2>Register</h2>
-    <form action="/register" method="post">
-        <div class="login_box">
-            <!-- required就是不能为空  必须在css效果中有很大的作用 -->
-            <input type="text" name='username' id='username' required  />
-            <label for="username" >Username</label>
-        </div>
-        <div class="login_box">
-            <input type="password" name='password' id='password' required="required">
-            <label for="password">Password</label>
-        </div>
-        <div class="login_box">
-            <input type="text" name='check' id='check' required="required">
-            <label for="check">验证码</label>
-            <img src="/checkcode" onclick="changeImg(this)"/>
+<div id="app">
+    <div class="login">
+        <template>
+            <el-alert style="display: none" id="success"
+                      title="This username is not registered.OvO"
+                      type="success"
+                      center
+                      show-icon>
+            </el-alert>
+
+            <el-alert style="display: none" id="error"
+                      title="Username has been registered,please retry.>_<"
+                      type="error"
+                      center
+                      show-icon>
+            </el-alert>
+        </template>
+        <h2>Register</h2>
+        <form action="/register" method="post">
+            <div class="login_box">
+                <input type="text" name='username' id='username' required onblur="inputonblur(this.value)"/>
+                <label for="username" >Username</label>
+            </div>
+
+            <div id="err" style="background-color: white"></div>
+            <div class="login_box">
+                <input type="password" name='password' id='password' required="required">
+                <label for="password">Password</label>
+            </div>
+            <div class="login_box">
+                <input type="text" name='email' id='email' required/>
+                <label for="email" >Email</label>
+            </div>
+            <div class="login_box">
+                <input type="text" name='check' id='check' required="required">
+                <label for="check">Verification Code</label>
+                <img src="/checkcode" onclick="changeImg(this)" style="display:block;margin:0 auto;width:245px;height:45px;"/>
+
+            </div>
+            <br>
             <button type="submit" style="display:block;margin:0 auto;width:245px;height:45px;">
                 Register!
             </button>
-        </div>
-
-
-    </form>
-
-
+            <div class="msg">
+                Already own an account?  <a href="/login.html">Log in</a>
+            </div>
+        </form>
+    </div>
 </div>
-
-<script src="js/vue.js"></script>
+<script src="js/axois.min.js"></script>
+<script src="js/vue.min.js"></script>
 <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
 <script src="https://unpkg.com/element-ui/lib/index.js"></script>
-<script type="text/javascript">
+<script>
+    new Vue({
+        el:"#app"
+    });
     function changeImg(obj) {
-        // alert("切换验证码");
-        //修改修改src
-        obj.src = "/checkcode?time=" + Date.now();
+        obj.src = "/checkcode?t=" + Date.now();
+    }
+    function inputonblur(e){
+        axios({
+            method : "GET",
+            url : "http://localhost/selectAllUser?username=" + e
+        }).then(function (resq){
+            if (e !== ""){
+                if(resq.data === "yes"){
+                    document.getElementById("error").style.display = "";
+                    //document.getElementById("err").innerHTML = "This username has been registered,please retry.>_<";
+                }else{
+                    document.getElementById("success").style.display = "";
+                    //document.getElementById("err").innerHTML = "This username is not registered.OvO";
+                }
+            }
+        })
     }
 </script>
 </body>

@@ -1,0 +1,1279 @@
+﻿将已有带头结点链表L1中的值为奇数的元素从L1中删除，并将这些奇数结点使用尾插方法建立到带头结点链表L2中。创建链表为头插法，0表示创建链表结束。
+void function(Link h1, Link h2)
+{
+	pNode p1 = h1, p2 = h2;
+
+	while (p1->next != NULL)
+	{
+		if (p1->next->data %2 == 1)
+		{
+			p2->next = p1->next;
+			p2 = p2->next;
+			p1->next = p2->next;
+		}
+		else
+		{
+			p1 = p1->next;
+		}
+	}
+	p2->next = NULL;
+}
+两个一元多项式求和。polyn1和polyn2分别表示两个一元多项式，是带头结点单链表。求和后的一元多项式使用polyn1来表示。输入每对数据分别表示系数和指数，均为0表示输入结束（系数为0不做处理，指数重复出现不做处理）。
+int polynomial_add(pLink head1, pLink head2)
+{
+	int sum;
+	pLink p, q, s, temp;
+
+	s = head1;
+	p = head1->next;
+	q = head2->next;
+	head2->next = NULL;
+
+	while (p != NULL && q != NULL)
+	{
+		if (p->exponent > q->exponent)
+		{
+			s->next = p;
+			s = p;
+			p = p->next;
+		}
+		else if (p->exponent < q->exponent)
+		{
+			s->next = q;
+			s = q;
+			q = q->next;
+		}
+		else
+		{
+			sum = p->coefficient + q->coefficient;
+			if (sum != 0)
+			{
+				p->coefficient = sum;
+				s->next = p;
+				s = p;
+				p = p->next;
+				
+				temp = q;
+				q = q->next;
+				free(temp);
+			}
+			else
+			{
+				temp = p;
+				p = p->next;
+				free(temp);
+				temp = q;
+				q = q->next;
+				temp = q;
+			}
+		}
+	}
+	if (p == NULL)
+	{
+		s->next = q;
+	}
+	else
+	{
+		s->next = p;
+	}
+	return 1;
+}
+使用尾插法创建不带头结点的单链表，其中创建的结点个数为n，使用形参回传该链表头指针。
+
+图中第一行的5，第二行的1 2 3 4 5是键盘输入的。
+int create(Link *head, int n)
+{
+	int i;
+	pNode p, q;
+
+	for (i = 1; i <= n; i++)
+	{
+		p = (pNode)malloc(sizeof(Node));
+		if (p == NULL)
+		{
+			return -1;
+		}
+		scanf("%d", &p->data);
+
+		if (i == 1)
+		{
+			*head = q = p;
+		}
+		else
+		{
+			q->next = p;
+			q = p;
+		}
+	}
+	q->next = NULL;
+	return 1;
+}
+该程序是带头结点双向链表的基本操作。完成HeadInsert函数功能，该函数使用头插法创建双向链表，创建的双向链表有n个结点。
+void HeadInsert(pDoubleLink L, int n)
+{
+	int i;
+	int temp;
+	pDoubleLink p;
+
+	printf("Input:\n");
+	for (i = 1; i <= n; i++)
+	{
+		scanf("%d", &temp);
+		p = (pDoubleLink)malloc(sizeof(DoubleLink));
+		if (p == NULL)
+		{
+			return ;
+		}
+		p->data = temp;
+		if (i == 1)
+		{
+			p->right = L->right;
+			p->left = L;
+			L->right = p;
+		}
+		else
+		{
+			p->right = L->right;
+			p->left = L;
+			p->right->left = p;
+			L->right = p;
+		}
+	}
+}
+使用头插法创建带头结点的单链表，数据域为整型，在创建时输入的数据为-222时表示结束创建（-222不保存在链表里），使用形参回传链表头指针。
+
+图中第二行为键盘输入。
+
+int create(Link *head)
+{
+	int temp;
+	pNode p;
+
+	*head = (pNode)malloc(sizeof(Node));	//头结点
+	if (*head == NULL)
+	{
+		return -1;
+	}
+	(*head)->next = NULL;
+
+	scanf("%d", &temp);
+	while (temp != -222)
+	{
+		p = (pNode)malloc(sizeof(Node));
+		if (p == NULL)
+		{
+			return -1;
+		}
+		p->data = temp;
+		p->next = (*head)->next;
+		(*head)->next = p;
+		scanf("%d", &temp);
+	}
+	return 1;
+}
+使用n1到n2之间（含n1和n2，n1≤n2）能被13整除且不能被5整除的元素创建链表，使用尾插法带头结点方式创建该链表。
+Node *Create(int n1, int n2)
+{
+	int i;
+	pLink head;
+	pLink p, q;
+
+	head = (Node *)malloc(sizeof(Node));
+	head->next = NULL;
+	p = head;
+	for (i = n1; i <= n2; i++)
+	{
+		if (i % 13 == 0 && i % 5 != 0)
+		{
+			q = (Node*)malloc(sizeof(Node));
+			q->data = i;
+			q->next = p->next;
+			p->next = q;
+			p = q;
+		}
+	}
+	return head;
+}
+已有带头结点链表s和t，在s链表中找出最后一个不在t链表中的元素。创建链表为尾插法，0表示创建链表结束。
+
+图中第2行、第5行为键盘输入。
+int find(Link s, Link t, int *value)
+{
+	int flag = 0;
+	pNode s1 = s->next;
+	pNode t1 = t->next;
+
+	while (s1 != NULL)
+	{
+		t1 = t->next;
+		while (t1 != NULL)
+		{
+			if (s1->data == t1->data)
+			{
+				break;
+			}
+			t1 = t1->next;
+		}
+		if (t1 == NULL)	//找到不存在t中的元素了
+		{
+			flag = 1;	//修改状态，找到了
+			*value = s1->data;
+		}
+		s1 = s1->next;
+	}
+
+	if (flag == 0)
+	{
+		return -1;	
+	}
+
+	return 1;
+}
+使用n1到n2之间（含n1和n2，1000≤n1≤n2≤9999）符合abcd=(ab+cd)*(ab+cd)条件的元素创建链表，使用尾插法带头结点方式创建该链表。
+Node *Create(int n1, int n2)
+{
+	int i;
+	pLink head;
+	pLink p, q;
+
+	head = (Node *)malloc(sizeof(Node));
+	head->next = NULL;
+	p = head;
+	for (i = n1; i <= n2; i++)
+	{
+		if ((i / 100 + i % 100) * (i / 100 + i % 100) == i)
+		{
+				q = (Node*)malloc(sizeof(Node));
+				q->data = i;
+				q->next = p->next;
+				p->next = q;
+				p = q;
+		}
+	}
+	return head;
+}
+已知带头结点的链表la，lb，将lb链表连接至la后。图示第1、3行是输入，建立链表（0表示建立结束，不包含在链表里），第2、4行是原始链表la和lb的输出。请在/******start******/和/******end******/注释行中间完成相关代码。
+
+void concat(node *la, node *lb)
+{
+	node *p = la;
+	while (p->next != NULL)
+	{
+		p = p->next;
+	}
+	p->next = lb->next;
+}
+
+将已有带头结点链表L1中的数据均为四位整数，将符合条件a+b>c+d（设四位数为abcd，并且千位+百位>十位+个位）的元素从L1中删除，并将这些删除的结点使用头插方法建立到带头结点链表L2中。创建链表为头插法，0表示创建链表结束。
+
+图中第二行为键盘输入。
+void function(Link h1, Link h2)
+{
+	int temp;
+	pNode p1 = h1, p2;
+
+	while (p1->next != NULL)
+	{
+		temp = p1->next->data;
+		if (temp / 1000 + temp / 100 % 10 > temp / 10 % 10 + temp % 10)
+		{
+			p2 = p1->next;
+			p1->next = p1->next->next;
+			p2->next = h2->next;
+			h2->next = p2;
+		}
+		else
+		{
+			p1 = p1->next;
+		}
+	}
+}
+删除带头结点链表中，值为k倍数的元素结点。创建链表为尾插法，0表示创建链表结束。
+
+图中第1行的3，第3行为键盘输入。
+void erase(Link head, int k)
+{
+	pNode p = head;
+	pNode q = NULL;
+
+	while (p->next != NULL)
+	{
+		if (p->next->data % k == 0)
+		{
+			q = p->next;
+			p->next = q->next;
+			continue;
+		}
+		p = p->next;
+	}
+}
+使用n1到n2之间（含n1和n2，n1≤n2）是素数的元素创建链表，使用尾插法带头结点方式创建该链表。
+Node *Create(int n1, int n2)
+{
+	int i, n;
+	pLink head;
+	pLink p, q;
+
+	head = (Node *)malloc(sizeof(Node));
+	head->next = NULL;
+	p = head;
+	for (i = n1; i <= n2; i++)
+	{
+		for (n = 2; n < i / 2; n++)
+		{
+			if (i % n == 0)
+			{
+				break;
+			}
+		}
+		if (n == i / 2)
+		{
+				q = (Node*)malloc(sizeof(Node));
+				q->data = i;
+				q->next = p->next;
+				p->next = q;
+				p = q;
+		}
+	}
+	return head;
+}
+已有带头结点链表s和t，统计在s链表中但不在t链表中的元素个数。创建链表为尾插法，0表示创建链表结束。
+
+图中第2行、第5行为键盘输入。
+int count(Link s, Link t)
+{
+	int cnt = 0;
+	pNode s1 = s->next;
+	pNode t1 = t->next;
+
+	while (s1 != NULL)
+	{
+		t1 = t->next;
+		while (t1 != NULL)
+		{
+			if (s1->data == t1->data)
+			{
+				break;
+			}
+			t1 = t1->next;
+		}
+		if (t1 == NULL)
+		{
+			cnt++;
+		}
+		s1 = s1->next;
+	}
+
+	return cnt;	
+}
+将带头结点单链表（n个结点元素）的前面M（1≤m<n）个元素移动到链表尾部。当m小于1或大于等于n时链表不发生变化。
+void move_m(pLink head, int m)
+{
+	int i;
+	pLink p = head;
+	pLink q = head->next;
+	pLink r;
+
+	i = 1;
+	while (p->next != NULL && i <= m)
+	{
+		p = p->next;
+		i++;
+	}
+	if (p->next == NULL || m <= 0)
+	{
+		return ;
+	}
+	r = p->next;
+	p->next = NULL;
+	head->next = r;
+
+	while (r->next != NULL)
+	{
+		r = r->next;
+	}
+	r->next = q;
+}
+使用n1到n2之间（含n1和n2，n1≤n2）能被3整除至少有一位数字是5的元素创建链表，使用尾插法带头结点方式创建该链表。
+
+
+Node *Create(int n1, int n2)
+{
+	int i, j;
+	pLink head;
+	pLink p, q;
+
+	head = (Node *)malloc(sizeof(Node));
+	head->next = NULL;
+	p = head;
+	for (i = n1; i <= n2; i++)
+	{
+		if (i % 3 == 0)
+		{
+			j = i;
+			while (j > 0)
+			{
+				if (j % 10 == 5)
+				{
+					break;
+				}
+				j = j / 10;
+			}
+			if (j > 0)
+			{
+				q = (Node*)malloc(sizeof(Node));
+				q->data = i;
+				q->next = p->next;
+				p->next = q;
+				p = q;
+			}
+		}
+	}
+	return head;
+}
+
+已有带头结点链表s和t，统计在s链表中并且存在于t链表中的元素个数。创建链表为尾插法，0表示创建链表结束。
+
+
+int count(Link s, Link t)
+{
+	int cnt = 0;
+	pNode s1 = s->next;
+	pNode t1 = t->next;
+
+	while (s1 != NULL)
+	{
+		t1 = t->next;
+		while (t1 != NULL)
+		{
+			if (s1->data == t1->data)
+			{
+				cnt++;
+				break;
+			}
+			t1 = t1->next;
+		}
+		s1 = s1->next;
+	}
+
+	return cnt;	
+}
+已有带头结点链表s和t，在s链表中找出第一个在t链表中出现的元素。创建链表为尾插法，0表示创建链表结束。
+
+int find(Link s, Link t, int *value)
+{
+	pNode s1 = s->next;
+	pNode t1 = t->next;
+
+	while (s1 != NULL)
+	{
+		t1 = t->next;
+		while (t1 != NULL)
+		{
+			if (s1->data == t1->data)
+			{
+				*value = s1->data;
+				return 1;
+			}
+			t1 = t1->next;
+		}
+		s1 = s1->next;
+	}
+
+	//没找到
+	return -1;	
+}
+使用尾插法创建带头结点的单链表，数据域为整型，在创建时输入的数据为-1时表示结束创建（-1不保存在链表里）。
+int create(Link head)
+{
+	int temp;
+	pNode p, q;
+
+	q = head;
+	scanf("%d", &temp);
+	while (temp != -1)
+	{
+		p = (pNode)malloc(sizeof(Node));
+		if (p == NULL)
+		{
+			q->next = NULL;
+			return -1;
+		}
+		p->data = temp;
+		q->next = p;
+		q = p;
+		scanf("%d", &temp);
+	}
+	q->next = NULL;
+	return 1;
+}
+使用头插法创建带头结点的单链表，数据域为字符型，在创建时遇回车结束，使用形参回传链表头指针。
+
+int create(Link *head)
+{
+	char ch;
+	pNode p;
+
+	*head = (pNode)malloc(sizeof(Node));
+	if (*head == NULL)
+	{
+		return -1;
+	}
+	(*head)->next = NULL;
+
+	while ((ch = getchar()) != '\n')
+	{
+		p = (pNode)malloc(sizeof(Node));
+		if (p == NULL)
+		{
+			return -1;
+		}
+		p->data = ch;
+		p->next = (*head)->next;
+		(*head)->next = p;
+	}
+	return 1;
+}
+将两个带头结点的单链表进行合并。将L2的第i个元素放置在L1的第i个元素后面（如果L1或L2有多余元素，放在最后面）。
+void merge(pLink head1, pLink head2)
+{
+	pLink pre, h1, h2;
+
+	pre = head1;
+	h1 = head1->next;
+	h2 = head2->next;
+	head2->next = NULL;
+
+	while (h1 != NULL && h2 != NULL)
+	{
+		pre->next = h1;
+		pre = h1;
+		h1 = h1->next;
+		pre->next = h2;
+		pre = h2;
+		h2 = h2->next;
+	}
+	if (h1 == NULL)
+	{
+		pre->next = h2;
+	}
+	else
+	{
+		pre->next = h1;
+	}
+}
+将带头结点的单链表中字符串dest替换为source。
+
+void replace(pLink L, char dest[], char source[])
+{
+	pLink p = L->next;
+
+	while (p != NULL)
+	{
+		if (strncmp(p->data, dest, LEN) == 0)
+		{
+			strncpy(p->data, source, LEN);
+		}
+		p = p->next;
+	}
+}
+已有带头结点链表s和t，在s链表中找出最后一个在t链表中出现的元素。创建链表为尾插法，0表示创建链表结束。
+
+int find(Link s, Link t, int *value)
+{
+	int flag = 0;
+	pNode s1 = s->next;
+	pNode t1 = t->next;
+
+	while (s1 != NULL)
+	{
+		t1 = t->next;
+		while (t1 != NULL)
+		{
+			if (s1->data == t1->data)
+			{
+				flag = 1;		//找到了，修改状态
+				*value = s1->data;
+			}
+			t1 = t1->next;
+		}
+		s1 = s1->next;
+	}
+
+	if (flag == 0)
+	{
+		return -1;	
+	}
+	return 1;
+}
+将L1、L2两个无头结点有序（升序）链表合并（每个链表中至少有1个元素），合并后的头指针为L1。创建链表为头插法，需要降序输入，0表示创建链表结束。
+void merge(Link *h1, Link h2)
+{
+	pNode p1 = *h1, p2 = h2;
+	pNode head = NULL, q = NULL;
+
+	while (p1 != NULL && p2 != NULL)
+	{
+		if (p1->data < p2->data)
+		{
+			if (head == NULL)
+			{
+				head = q = p1;
+			}
+			else
+			{
+				q ->next = p1;
+			}
+			q = p1;
+			p1 = p1->next;
+		}
+		else
+		{
+			if (head == NULL)
+			{
+				head = q = p2;
+			}
+			else
+			{
+				q->next = p2;
+			}
+			q = p2;
+			p2 = p2->next;
+		}
+	}
+
+	if (p1 == NULL)
+	{
+		q->next = p2;
+	}
+	else
+	{
+		q->next = p1;
+	}
+	*h1 = head;
+}
+使用头插法创建不带头结点的单链表，其中创建的结点个数为n，返回值为链表头指针。
+
+图中第一行的5，第二行的1 2 3 4 5是键盘输入的。    
+Link create(int n)
+{
+	int i;
+	Link head = NULL;
+	pNode p;
+
+	for (i = 1; i <= n; i++)
+	{
+		p = (pNode)malloc(sizeof(Node));
+		if (p == NULL)
+		{
+			return NULL;
+		}
+		scanf("%d", &p->data);
+		p->next = head;
+		head = p;
+	}
+	return head;
+}
+已有带头结点链表s和t，在s链表中找出第一个不在t链表中的元素。创建链表为尾插法，0表示创建链表结束。
+
+图中第2行、第5行为键盘输入。
+int find(Link s, Link t, int *value)
+{
+	pNode s1 = s->next;
+	pNode t1 = t->next;
+
+	while (s1 != NULL)
+	{
+		t1 = t->next;
+		while (t1 != NULL)
+		{
+			if (s1->data == t1->data)
+			{
+				break;
+			}
+			t1 = t1->next;
+		}
+		if (t1 == NULL)	//找到不存在t中的元素了
+		{
+			*value = s1->data;
+			return 1;
+		}
+		s1 = s1->next;
+	}
+
+	//没找到
+	return -1;	
+}
+已知两个带头结点有序（升序）链表L1、L2，在不修改两个链表状态下，将数据创建到带头结点链表L3中保持有序。创建链表为头插法，需要降序输入，0表示创建链表结束。
+int merge(Link h1, Link h2, Link h3)
+{
+	pNode p1, p2, p3;
+	pNode te;
+
+	p1 = h1->next;
+	p2 = h2->next;
+	p3 = h3;
+	while (p1 != NULL && p2 != NULL)
+	{
+		te = (pNode)malloc(sizeof(Node));
+		if (te == NULL)
+		{
+			destroy(h3);
+			return -1;
+		}
+		if (p1->data < p2->data)
+		{
+			te->data = p1->data;
+			p1 = p1->next;
+		}
+		else
+		{
+			te->data = p2->data;
+			p2 = p2->next;
+		}
+		p3->next = te;
+		p3 = te;
+	}
+	if (p1 != NULL)
+	{
+		while (p1 != NULL)
+		{
+			te = (pNode)malloc(sizeof(Node));
+			if (te == NULL)
+			{
+				destroy(h3);
+				return -1;
+			}
+			te->data = p1->data;
+			p1 = p1->next;
+			p3->next = te;
+			p3 = te;
+		}
+	}
+	else
+	{
+		while (p2 != NULL)
+		{
+			te = (pNode)malloc(sizeof(Node));
+			if (te == NULL)
+			{
+				destroy(h3);
+				return -1;
+			}
+			te->data = p2->data;
+			p2 = p2->next;
+			p3->next = te;
+			p3 = te;
+		}
+	}
+	p3->next = NULL;
+	return 1;
+}
+将带头结点单链表结点反转。如：原始链表结点内容为1、3、5、2、4、6，反转后链表内容为6、4、2、5、3、1。
+void reverse(pLink head)
+{
+	pLink p, q;
+	p = head->next;
+	head->next = NULL;
+	while (p != NULL)
+	{
+		q = p->next;
+		p->next = head->next;
+		head->next = p;
+		p = q;
+	}
+}
+统计带头结点单链表中大写字母字符、小写字母字符、数字字符、其它字符个数。
+
+void LinkCount(pLink head, int *cnt)
+{
+	if (head == NULL)
+	{
+		return ;
+	}
+	head = head->next;
+	while (head != NULL)
+	{
+		if (head->data >= 'A' && head->data <= 'Z')
+		{
+			(*cnt)++;
+		}
+		else if (head->data >= 'a' && head->data <= 'z')
+		{
+			(*(cnt + 1))++;
+		}
+		else if (head->data >= '0' && head->data <= '9')
+		{
+			(*(cnt + 2))++;
+		}
+		else
+		{
+			cnt[3]++;
+		}
+		head = head->next;
+	}
+}
+复制带头结点链表source给dest。
+
+int copy(pLink source, pLink *dest)
+{
+	pLink s = source->next;
+	pLink p, q;
+
+	*dest = (Node *)malloc(sizeof(Node));
+	if (*dest == NULL)
+	{
+		return -1;
+	}
+	(*dest)->next = NULL;
+	p = *dest;
+
+	while (s != NULL)
+	{
+		q = (Node*)malloc(sizeof(Node));
+		if (q == NULL)
+		{
+			return -1;
+		}
+		q->data = s->data;
+		q->next = p->next;
+		p->next = q;
+		p = q;
+		s = s->next;
+	}
+	return 1;
+}
+统计链表中奇数元素的个数。
+
+int LinkCountOdd(pLink head, int *cnt)
+{
+	if (head == NULL || head->next == NULL)
+	{
+		return -1;
+	}
+	*cnt = 0;
+
+	head = head->next;
+	while (head != NULL)
+	{
+		if (head->data % 2 == 1)
+		{
+			(*cnt)++;
+		}
+		head = head->next;
+	}
+	return 1;
+}
+该程序创建一个带头结点的单链表。完成FindMin函数，找到最小值min1和次小值min2（第二小值）。
+
+int FindMin(pLink head, int *min1, int *min2)
+{
+	if (head == NULL || head->next == NULL || head->next->next == NULL)
+	{
+		return -1;
+	}
+
+	head = head->next;
+	if (head->data <= head->next->data)
+	{
+		*min1 = head->data;
+		*min2 = head->next->data;
+	}
+	else
+	{
+		*min1 = head->next->data;
+		*min2 = head->data;
+	}
+	
+	head = head->next->next;
+	while (head != NULL)
+	{
+		if (head->data < *min2)
+		{
+			if (head->data < *min1)
+			{
+				*min2 = *min1;
+				*min1 = head->data;
+			}
+			else
+			{
+				*min2 = head->data;
+			}
+		}
+		head = head->next;
+	}
+	return 1;
+}有一带头结点的单链表。完成FindMax函数，查找该链表中最大的元素值。
+
+int FindMax(pLink head, int *max)
+{
+	int temp;
+
+	if (head->next == NULL || head == NULL)
+	{
+		return -1;
+	}
+	head = head->next;
+	temp = head->data;
+	while (head != NULL)
+	{
+		if (temp < head->data)
+		{
+			temp = head->data;
+		}
+		head = head->next;
+	}
+	*max = temp;
+	return 1;
+}
+有一带头结点单链表。完成LinkSum函数，求各结点元素的和。
+
+int LinkSum(pLink head, int *sum)
+{
+	if (head == NULL || head->next == NULL)
+	{
+		return -1;
+	}
+	*sum = 0;
+
+	head = head->next;
+	while (head != NULL)
+	{
+		*sum = *sum + head->data;
+		head = head->next;
+	}
+	return 1;
+}
+
+
+删除带头结点的循环链表中元素为m的结点。
+void del(pCircleLink L, int m)
+{
+	pCircleLink p, q;
+	p = L;
+
+	while (p->next != L)
+	{
+		if (p->next->data == m)
+		{
+			q = p->next;
+			p->next = q->next;
+			free(q);
+		}
+		else
+		{
+			p = p->next;
+		}
+	}
+}
+该程序是带头结点双向链表的基本操作。完成Insert函数功能，该函数将数据data插入到双向链表的第pos个位置上。
+
+int Insert(pDoubleLink L, int data, int pos)
+{
+	int i;
+	pDoubleLink p, s;
+
+	p = L;
+
+	i = 1;
+	while (p != NULL)
+	{
+		if (i >= pos || i < 1)
+		{
+			break;
+		}
+		i++;
+		p = p->next;
+	}
+
+	if (pos < 1 || p == NULL)
+	{
+		return -1;
+	}
+	s = (pDoubleLink)malloc(sizeof(DoubleLink));
+	s->data = data;
+	s->next = p->next;
+	s->prior = p;
+	if (p->next != NULL)
+	{
+		p->next->prior = s;
+	}
+	p->next = s;
+
+	return 0;
+}
+将带头结点的循环链表中元素m替换为n。
+
+void replace(pCircleLink L, int m, int n)
+{
+	pCircleLink p = L->next;
+
+	while (p != L)
+	{
+		if (p->data == m)
+		{
+			p->data = n;
+		}
+		p = p->next;
+	}
+}
+该程序是带头结点双向链表的基本操作。完成HeadInsert函数功能，调用该函数一次，可以在该双向链表的最前面插入一个元素。
+
+void HeadInsert(pDoubleLink L, int data)
+{
+	pDoubleLink p;
+
+	p = (pDoubleLink)malloc(sizeof(DoubleLink));
+	p->data = data;
+
+	p->right = L->right;
+	p->left = L;
+
+	if (L->right == NULL)
+	{
+		L->right = p;
+	}
+	else
+	{
+		L->right->left = p;
+		L->right = p;
+	}
+}
+该程序是带头结点双向链表的基本操作。完成CreateTail函数，该函数使用尾插法创建双向链表。
+
+void CreateTail(pDoubleLink L, int n)
+{
+	int i, data;
+	pDoubleLink p, q;
+
+	q = L;
+	printf("Input:\n");
+	for (i = 0; i < n; i++)
+	{
+		scanf("%d", &data);
+
+		p = (pDoubleLink)malloc(sizeof(DoubleLink));
+		p->data = data;
+		p->next = q->next;
+		p->prior = q;
+
+		q->next = p;
+		q = p;
+	}
+}
+删除带头结点非循环双向链表中值为x的所有结点。创建链表为尾插法，0表示创建链表结束。
+void erase(Link head, int x)
+{
+	pNode p = head, q;
+
+	while (p->next != NULL)
+	{
+		if (p->next->data == x)
+		{
+			q = p->next;
+			p->next = q->next;
+
+			if (q->next != NULL)
+			{
+				q->next->prior = p;
+			}
+			free(q);
+			continue;
+		}
+		p = p->next;
+	}
+}
+统计带头结点的循环链表中元素的个数。
+
+int count(pCircleLink L)
+{
+	int cnt = 0;
+	pCircleLink p = L;
+	while (p->next != L)
+	{
+		cnt++;
+		p = p->next;
+	}
+	return cnt;
+}
+保持数列有序：有n(约定n<=100)个整数，已经按照从小到大顺序排列好，现在另外给一个整数x，请将该数插入到序列中，并使新的序列仍然有序。程序输入：输入数据包含多组测试实例，每组数据由两行组成，第一行是n和x，第二行是已经有序的n个数的数列。n和x同时为0表示输入数据的结束，本行不做处理。     程序输出：对于每个测试实例，输出
+#include <stdio.h>
+int main(void)
+{
+	int i, j, n, x;
+	int arr[101];
+	printf("Input:\n");
+	scanf("%d%d", &n, &x);
+	while (n != 0 || x != 0)
+	{
+		for (i = 0; i < n; i++)
+		{
+			scanf("%d", &arr[i]);
+		}
+		for (j = n - 1; j >= 0 && x < arr[j]; j--)
+		{
+			arr[j + 1] = arr[j];
+		}
+		arr[j + 1] = x;
+		printf("Output: ");
+		for (i = 0; i <= n; i++)
+		{
+			printf("%d ", arr[i]);
+		}
+		printf("\n");
+		scanf("%d%d", &n, &x);
+	}
+	return 0;
+}
+从顺序结构（n个元素）中第i个（1 <= i <= n）位置连续删除k个（k > 0）元素，第1,3,5行为输入提示，第2,4,6行需要用户输入，第8行为输出。
+#include <stdio.h>
+
+#define Maxsize 40
+
+int DelArray(int array[], int *last, int i, int k)
+{
+	int j;
+	if (i > *last || i <= 0)
+	{
+		printf("Output: \n");
+		printf("给出的起始位置不合法\n");
+		return 1;
+	}
+	if (i + k - 1 > *last || k <= 0)
+	{
+		printf("Output: \n");
+		printf("删除个数值不合法!\n");
+		return 1;
+	}
+	for (j = i - 1; j + k < *last; j++)
+	{
+		array[j] = array[j + k];
+	}
+	*last -= k;
+	return 0;
+}
+int main()
+{
+	int array[Maxsize], last, i, j, k;  //array:数组，last：数组最大下标,j:循环变量
+    printf("请输入数组元素个数:\n");
+	scanf("%d", &last);
+	printf("请输入数组:\n");
+	for (j = 0; j < last; j++)
+	{
+		scanf("%d", &array[j]);
+	}
+    printf("请输入删除起始位置及个数:\n");
+	scanf("%d%d", &i, &k);
+	if (DelArray(array, &last, i, k) == 1)
+	{
+		return 0;
+	}
+	//printf("输出删除处理后的数组\n");
+	printf("Output:\n");
+	for(j = 0; j < last; j++)
+	{
+		printf("%d ", array[j]);
+	}
+	printf("\n");
+	return 0;
+}
+将两个顺序存储的有序（升序）表合并成一个有序表（设用户输入的是有序表，忽略检测用户有序状况的检查），合并后输出。第1,3,5,7行为用户输入提示，2,4,6,8行为用户输入，第10行为输出的结果。
+#include <stdio.h>
+
+void step(int a[], int m, int k)
+{
+	int i;
+	for (i = m - 1; i >= k; i--)
+	{
+		a[i + 1] = a[i];
+	}
+}
+
+int main(void)
+{
+	int a[80];
+	int b[10];
+	int m, n;
+	int i, j;
+	int count;
+	int ina=0, inb=0;
+	printf("请输入第一个序列的元素个数:\n");
+	scanf("%d", &m);
+	printf("请依次输入第一个序列的所有元素:\n");
+	for (i = 0; i <= m - 1; i++)
+	{
+		scanf("%d", &a[i]);
+	}
+	printf("请输入第二个序列的元素个数:\n");
+	scanf("%d", &n);
+	printf("请依次输入第二个序列的所有元素:\n");
+	for (j = 0; j <= n - 1; j++)
+	{
+		scanf("%d", &b[j]);
+	}
+	//int a[80]={2,3,6,9,13},m=5;
+	//int b[6]={4,7,14,15},n=4;
+	i = 0;
+	j = 0;
+	count = m;
+	while (ina < m && inb < n)
+	{
+		if (b[j] < a[i] )
+		{
+			step(a, count, i);
+			a[i] = b[j++];
+			count++;
+			inb++;
+		}
+		else
+			ina++;
+		i++;
+	}
+	if (inb < n)
+	{
+		while (j<n)
+		{
+			a[i++]=b[j++];
+		}
+	}
+	printf("output:\n");
+	for (i = 0; i < m + n; i++)
+	{
+		printf("%d ", a[i]);
+	}
+	printf("\n");
+	return 0;
+}
+一个旅行社要从n名旅客中选出一名幸运旅客，为他提供免费环球旅行服务。方法是，大家站成圈，然后选定一个m，从第1个人开始报数，报到m时，这个人OUT，然后从下一个人开始重新从1报数，重复这个过程，直到最后剩下一个人就是幸运之星。问题就是谁是幸运者呢？图示中10 3是键盘输入的，表示10名旅客，报到3时OUT。
+#include <stdio.h>
+
+#define N 1000
+int main(void)
+{
+	int i, j, x;
+	int a[N];
+
+	int n = 3, m;
+	int xb = 0;
+
+	printf("Input: ");
+	scanf("%d%d", &m, &n);
+	for (i = 0; i < N; i++)
+		a[i] = i+1;
+
+	for (i = m; i > 1; i--)
+	{
+		xb = (xb + n - 1) % i;
+		x = a[xb];
+		for (j = xb; j < i-1; j++)
+		{
+			a[j]=a[j+1];
+		}
+		a[j]=x;
+	}
+
+	printf("Output: %d\n", a[0]);
+
+	return 0;
+
+}
