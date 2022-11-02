@@ -48,7 +48,7 @@ vm = new Vue({
                         let f = obj[i];
                         let size = f.filesize > 0 ? f.filesize : "-";
                         if (size > 1024*1024 && size < 1024*1024*1024){
-                            size = Number(size / 1024 * 1024).toFixed(2) + "M";
+                            size = Number(size / (1024 * 1024)).toFixed(2) + "M";
                         }else if (size > 1024*1024*1024){
                             size = Number(size / (1024 * 1024 * 1024)).toFixed(2) + "G";
                         }else if (size < 1024*1024){
@@ -80,7 +80,7 @@ vm = new Vue({
                         let rawDate = new Date(f.editTime);
                         let size = f.filesize > 0 ? f.filesize : "-";
                         if (size > 1024*1024 && size < 1024*1024*1024){
-                            size = Number(size / 1024 * 1024).toFixed(2) + "M";
+                            size = Number(size / (1024 * 1024)).toFixed(2) + "M";
                         }else if (size > 1024*1024*1024){
                             size = Number(size / (1024 * 1024 * 1024)).toFixed(2) + "G";
                         }else if (size < 1024*1024){
@@ -115,7 +115,7 @@ vm = new Vue({
                         let rawDate = new Date(f.editTime);
                         let size = f.filesize > 0 ? f.filesize : "-";
                         if (size > 1024*1024 && size < 1024*1024*1024){
-                            size = Number(size / 1024 / 1024).toFixed(2) + "M";
+                            size = Number(size / (1024 * 1024)).toFixed(2) + "M";
                         }else if (size > 1024*1024*1024){
                             size = Number(size / (1024 * 1024 * 1024)).toFixed(2) + "G";
                         }else if (size < 1024*1024){
@@ -279,7 +279,7 @@ vm = new Vue({
                         let f = obj[i];
                         let size = f.filesize > 0 ? f.filesize : "-";
                         if (size > 1024*1024 && size < 1024*1024*1024){
-                            size = Number(size / 1024*1024).toFixed(2) + "M";
+                            size = Number(size / (1024*1024)).toFixed(2) + "M";
                         }else if (size > 1024*1024*1024){
                             size = Number(size / (1024 * 1024 * 1024)).toFixed(2) + "G";
                         }else if (size < 1024*1024){

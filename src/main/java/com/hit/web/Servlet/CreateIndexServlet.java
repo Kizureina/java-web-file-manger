@@ -23,7 +23,7 @@ public class CreateIndexServlet extends HttpServlet{
 
         String indexName = new String(request.getParameter("indexName").getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
         // 解决中文乱码
-        FileService fileService = currentIndex == null ? new FileService(userName + "//" + indexName): new FileService(userName + "//" + currentIndex + "//" + indexName);
+        FileService fileService = currentIndex == null ? new FileService(userName + "/" + indexName): new FileService(userName + "/" + currentIndex + "/" + indexName);
         try {
             fileService.createIndex();
             logger.info(indexName + "文件夹创建成功");

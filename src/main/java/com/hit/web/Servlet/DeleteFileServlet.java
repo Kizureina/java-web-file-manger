@@ -23,7 +23,7 @@ public class DeleteFileServlet extends HttpServlet {
 
         String indexName = new String(request.getParameter("indexName").getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
 
-        FileService fileService = currentIndex == null ? new FileService(userName + "//" + indexName): new FileService(userName + "//" + currentIndex + "//" + indexName);
+        FileService fileService = currentIndex == null ? new FileService(userName + "/" + indexName): new FileService(userName + "/" + currentIndex + "/" + indexName);
 
         if (fileService.deleteFile()){
             logger.info(indexName + "文件删除成功");

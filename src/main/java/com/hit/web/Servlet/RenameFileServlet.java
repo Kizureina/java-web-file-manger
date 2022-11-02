@@ -27,8 +27,8 @@ public class RenameFileServlet extends HttpServlet {
         String newName = new String(request.getParameter("newName").getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
 
         FileService fileService = currentIndex == null ?
-                new FileService(FileService.ROOT_PATH + userName + "//"):
-                new FileService(FileService.ROOT_PATH + userName + "//" + currentIndex + "//");
+                new FileService(FileService.ROOT_PATH + userName + "/"):
+                new FileService(FileService.ROOT_PATH + userName + "/" + currentIndex + "/");
         if(fileService.renameFile(oldName, newName)){
             logger.info(oldName + "文件重命名成功，新文件名为" + newName);
             response.getWriter().write("true");

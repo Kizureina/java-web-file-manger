@@ -1,6 +1,5 @@
 package com.hit.util;
 
-import com.hit.web.Servlet.Register;
 import com.sun.mail.util.MailSSLSocketFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -71,7 +70,7 @@ public class MailUtil implements Runnable {
             message.setSubject("账号激活");
             // 2.4设置邮件内容
             String content = "<html><head></head><body><h1>这是一封激活邮件,激活账号请点击以下链接</h1>" +
-                    "<h3><a href='http://localhost/activeServlet?username=" + username + "&code="
+                    "<h3><a href='https://kusarinoshojo.space/activeServlet?username=" + username + "&code="
                     + CODE + "'>点击这里"
                     + "</a></h3></body></html>";
             message.setContent(content, "text/html;charset=UTF-8");

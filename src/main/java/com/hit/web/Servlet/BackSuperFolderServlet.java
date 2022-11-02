@@ -45,10 +45,10 @@ public class BackSuperFolderServlet extends HttpServlet {
                 return;
             }
         }else {
-            String nowIndex = currentIndex.replace("//" + currentFolder,"");
+            String nowIndex = currentIndex.replace("/" + currentFolder,"");
             session.setAttribute("index",nowIndex);
             try {
-                fileInfo = FileService.getFileInfo(new java.io.File(FileService.ROOT_PATH + userName + "//" + nowIndex));
+                fileInfo = FileService.getFileInfo(new java.io.File(FileService.ROOT_PATH + userName + "/" + nowIndex));
             } catch (Exception e) {
                 e.printStackTrace();
                 String s = JSON.toJSONString(0);

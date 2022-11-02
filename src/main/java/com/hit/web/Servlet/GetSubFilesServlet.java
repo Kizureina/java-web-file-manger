@@ -28,15 +28,15 @@ public class GetSubFilesServlet extends HttpServlet {
         List<File> fileInfo;
         if (currentIndex == null){
             session.setAttribute("index",indexName);
-            fileInfo = FileService.getFileInfo(new java.io.File(FileService.ROOT_PATH + userName + "//" + indexName));
+            fileInfo = FileService.getFileInfo(new java.io.File(FileService.ROOT_PATH + userName + "/" + indexName));
             if (fileInfo == null){
                 response.getWriter().write(JSON.toJSONString(0));
                 return;
             }
         } else {
-            session.setAttribute("index",currentIndex + "//" + indexName);
+            session.setAttribute("index",currentIndex + "/" + indexName);
 
-            fileInfo = FileService.getFileInfo(new java.io.File(FileService.ROOT_PATH + userName + "//" + currentIndex + "//" + indexName));
+            fileInfo = FileService.getFileInfo(new java.io.File(FileService.ROOT_PATH + userName + "/" + currentIndex + "/" + indexName));
             if(fileInfo == null){
                 response.getWriter().write(JSON.toJSONString(0));
                 return;

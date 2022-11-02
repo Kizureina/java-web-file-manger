@@ -31,8 +31,8 @@ public class FileDownloadServlet extends HttpServlet {
         String currentIndex = (String) session.getAttribute("index");
 
         File file = currentIndex == null ?
-                new File(FileService.ROOT_PATH + userName + "//" + fileName):
-                new File(FileService.ROOT_PATH + userName + "//" + currentIndex + "//" + fileName);
+                new File(FileService.ROOT_PATH + userName + "/" + fileName):
+                new File(FileService.ROOT_PATH + userName + "/" + currentIndex + "/" + fileName);
         if (file.isDirectory()){
             String s = JSON.toJSONString(false);
             response.getWriter().write(s);
