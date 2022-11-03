@@ -24,7 +24,7 @@ public class ActiveServlet extends HttpServlet {
         String code = request.getParameter("code");
         String username = request.getParameter("username");
 
-        logger.info("code=" + MailUtil.CODE);
+        logger.info("激活参数应为 " + MailUtil.CODE.get(username));
         logger.info("实际参数为 " + code);
 
         if(MailUtil.CODE.equals(code)){

@@ -42,7 +42,7 @@ public class UserService {
         code = Checkcode.getCodeString();
         //保存成功则通过线程的方式给用户发送一封邮件
         try {
-            MailUtil.CODE = code;
+            MailUtil.CODE.put(userName, code);
             new Thread(new MailUtil(email, userName)).start();
         } catch (Exception e) {
             throw new RuntimeException(e);

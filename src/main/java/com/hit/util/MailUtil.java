@@ -7,13 +7,15 @@ import org.slf4j.LoggerFactory;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
 /**
  * @author Yoruko
  */
 public class MailUtil implements Runnable {
-    public static String CODE;
+    public static Map<String,String> CODE = new HashMap<>();
     private String email;
     private final String username;
     private static final Logger logger = LoggerFactory.getLogger(MailUtil.class);
@@ -71,7 +73,7 @@ public class MailUtil implements Runnable {
             // 2.4设置邮件内容
             String content = "<html><head></head><body><h1>这是一封激活邮件,激活账号请点击以下链接</h1>" +
                     "<h3><a href='https://kusarinoshojo.space/activeServlet?username=" + username + "&code="
-                    + CODE + "'>点击这里"
+                    + CODE.get(username) + "'>点击这里"
                     + "</a></h3></body></html>";
             message.setContent(content, "text/html;charset=UTF-8");
             // 3.发送邮件
