@@ -17,6 +17,7 @@ public class FileInfoServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         response.setContentType("text/json;charset=utf-8");
+        response.setHeader("Cache-control", "no-cache");
 
         String userName = (String) session.getAttribute("username");
         String currentIndex = (String) session.getAttribute("index");

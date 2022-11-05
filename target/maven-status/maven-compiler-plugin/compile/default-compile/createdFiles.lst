@@ -1,4 +1,5 @@
 com\hit\pojo\User.class
+com\hit\web\Servlet\CreateIndexServlet.class
 com\hit\web\Servlet\FileDownloadServlet.class
 com\hit\web\Servlet\DestroySessionServlet.class
 com\hit\web\Servlet\BackSuperFolderServlet.class
@@ -18,7 +19,9 @@ com\hit\web\Filter\LoginFilter.class
 com\hit\web\Servlet\ActiveServlet.class
 com\hit\web\Servlet\DeleteFileServlet.class
 com\hit\web\Servlet\ChangePasswordServlet.class
+com\hit\service\FileService.class
 com\hit\web\Servlet\Register.class
 com\hit\web\Servlet\RenameFileServlet.class
 com\hit\web\Servlet\FileUploadServlet.class
 com\hit\service\UserService.class
+com\hit\pojo\File.class

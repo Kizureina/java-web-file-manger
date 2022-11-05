@@ -27,7 +27,7 @@ public class LoginFilter implements Filter {
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse resp = (HttpServletResponse) response;
 
-        String[] urls = {"/login.html","/css/","/img/","/js/","/login","/register.html","/register","/selectAllUser","/checkcode","/activeServlet","/destroySessionServlet"};
+        String[] urls = {"/fileInfoServlet", "/login.html","/css/","/img/","/js/","/login","/register.html","/register","/selectAllUser","/checkcode","/activeServlet","/destroySessionServlet"};
         //放行与登录相关的资源
         String url = req.getRequestURL().toString();
         for (String s : urls) {
@@ -41,6 +41,8 @@ public class LoginFilter implements Filter {
 
 //        logger.info("当前登录账户为" + user);
         if (user != null){
+            resp.setHeader("Cache-control", "no-cache");
+
             String origin = req.getHeader("Origin");
 
             resp.setHeader("Access-Control-Allow-Origin", origin);

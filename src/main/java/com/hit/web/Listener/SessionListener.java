@@ -41,7 +41,6 @@ public class SessionListener implements ServletContextListener, HttpSessionListe
         /* Session is destroyed. */
 //        HttpSession session = se.getSession();
 //        String username = (String)session.getAttribute("username");
-//        userService.editUserStatus(username,0);
 //        logger.info("用户" + username + "超时退出");
     }
 

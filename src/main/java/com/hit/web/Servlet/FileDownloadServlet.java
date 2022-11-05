@@ -14,6 +14,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.util.List;
 
 @WebServlet("/fileDownloadServlet")
@@ -33,15 +35,41 @@ public class FileDownloadServlet extends HttpServlet {
         File file = currentIndex == null ?
                 new File(FileService.ROOT_PATH + userName + "/" + fileName):
                 new File(FileService.ROOT_PATH + userName + "/" + currentIndex + "/" + fileName);
-        if (file.isDirectory()){
+        BasicFileAttributes basicFileAttributes = Files.readAttributes(file.toPath(), BasicFileAttributes.class);
+        if (basicFileAttributes.isDirectory()){
             String s = JSON.toJSONString(false);
             response.getWriter().write(s);
             logger.error("下载对象不可为文件夹" + fileName);
             return;
         }
+
+        response.setHeader("Accept-Ranges", "bytes");
+        response.setHeader("Content-Length", String.valueOf(basicFileAttributes.size()));
+
+        long pos = 0;
+        if (request.getHeader("Range") != null) {
+            // 断点续传
+            response.setStatus(HttpServletResponse.SC_PARTIAL_CONTENT);
+            try {
+                pos = Long.parseLong(request.getHeader("Range").replaceAll(
+                        "bytes=", "").replaceAll("-", ""));
+            } catch (NumberFormatException e) {
+                logger.error(request.getHeader("Range") + " is not Number!");
+                pos = 0;
+            }
+        }
+
         try (FileInputStream fileInputStream = new FileInputStream(file)) {
+            String contentRange = "bytes " +
+                    pos + "-" +
+                    (file.length() - 1) + "/" +
+                    file.length();
+            response.setHeader("Content-Range", contentRange);
+            logger.debug("Content-Range " + contentRange);
+            fileInputStream.skip(pos);
+
             ServletOutputStream outputStream = response.getOutputStream();
-            byte[] buffer = new byte[1024];
+            byte[] buffer = new byte[5 * 1024];
             int len = 0;
             while ((len = fileInputStream.read(buffer)) != -1) {
                 outputStream.write(buffer, 0, len);

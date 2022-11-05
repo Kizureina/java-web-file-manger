@@ -7,7 +7,7 @@ import org.junit.Test;
 public class mailtest {
     @Test
     public void mailTest1(){
-        MailUtil.CODE = "dwawawaaw";
+        MailUtil.CODE.put("nagisa", "dwawawaaw");
         MailUtil mailUtil = new MailUtil("houchangkun@gmail.com", "nagisa");
         new Thread(mailUtil).start();
     }

@@ -24,10 +24,12 @@ public class ActiveServlet extends HttpServlet {
         String code = request.getParameter("code");
         String username = request.getParameter("username");
 
-        logger.info("激活参数应为 " + MailUtil.CODE.get(username));
+        String codeMap = MailUtil.CODE.get(username);
+
+        logger.info("激活参数应为 " + codeMap);
         logger.info("实际参数为 " + code);
 
-        if(MailUtil.CODE.equals(code)){
+        if(codeMap.equals(code)){
             UserService.editUserStatus(username,1);
             response.getWriter().write("<script>alert(\"账号激活成功! 快去登录吧！\");" +
                     "window.location.href='/login.html'</script>");

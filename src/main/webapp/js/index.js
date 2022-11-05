@@ -18,6 +18,10 @@ vm = new Vue({
                 return;
             }
             let fileName = this.multipleSelection[0].name;
+            if (this.multipleSelection[0].size === '-'){
+                this.$message.error('不可下载文件夹！');
+                return;
+            }
             if (fileName.indexOf(".") !== -1){
                 let url = "/fileDownloadServlet?fileName=" + fileName;
                 window.location.href = encodeURI(url);
@@ -102,13 +106,18 @@ vm = new Vue({
                 return;
             }
             let folderName = this.multipleSelection[0].name;
+
+            if (this.multipleSelection[0].size !== '-'){
+                this.$message.error('请选择文件夹！');
+                return;
+            }
             axios.get("http://localhost/getSubFilesServlet?indexName=" + folderName)
                 .then(resp => {
                     var obj = resp.data;
-                    if (obj === 0){
-                        this.$message.error('请选择文件夹！');
-                        return;
-                    }
+                    // if (obj === 0){
+                    //     this.$message.error('请选择文件夹！');
+                    //     return;
+                    // }
                     this.tableData = Array(obj.length);
                     for (let i = 0; i < obj.length; i++){
                         let f = obj[i];
